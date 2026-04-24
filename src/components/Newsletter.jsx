@@ -49,7 +49,7 @@ export default function Newsletter() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
+                placeholder="you@studyaitools.biz"
                 className="flex-1 px-5 py-3 rounded-full text-slate-900 outline-none ring-2 ring-white/40 focus:ring-white"
               />
               <button type="submit" className="btn bg-white text-brand-700 hover:bg-slate-100 !px-6 !py-3">

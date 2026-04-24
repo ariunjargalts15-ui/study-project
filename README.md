@@ -183,7 +183,7 @@ Append to `src/data/tools.js`:
   trending: true,
   emoji: '🤖',
   color: 'from-indigo-500 to-purple-500',
-  url: 'https://example.com',
+  url: 'https://studyaitools.biz',
   affiliateUrl: '',           // your affiliate link (takes precedence if set)
 }
 ```
@@ -209,7 +209,7 @@ Edit the `brand` and `accent` palettes in `tailwind.config.js`. Everything (butt
 Change the Google Fonts link in `index.html` and the `fontFamily` entries in `tailwind.config.js`.
 
 ### Site name + metadata
-Replace &ldquo;AI Tools Hub&rdquo; and `example.com` across:
+Replace &ldquo;AI Tools Hub&rdquo; and `studyaitools.biz` across:
 - `index.html` (title, meta, OG tags)
 - `src/components/SEO.jsx` (title template)
 - `public/sitemap.xml`, `public/robots.txt`

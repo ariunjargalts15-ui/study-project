@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----- Global base styles ----- */
+:root {
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-slate-800 bg-slate-50 antialiased;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+}
+.dark body {
+  @apply text-slate-200 bg-slate-950;
+}
+
+/* Subtle selection color */
+::selection { background: #c7d2fe; color: #1e1b4b; }
+.dark ::selection { background: #4f46e5; color: #fff; }
+
+/* ----- Utility components ----- */
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold text-sm px-5 py-2.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-soft hover:shadow-glow;
+  }
+  .btn-secondary {
+    @apply btn bg-white text-brand-700 ring-1 ring-inset ring-brand-200 hover:bg-brand-50
+           dark:bg-slate-900 dark:text-brand-300 dark:ring-slate-700 dark:hover:bg-slate-800;
+  }
+  .btn-ghost {
+    @apply btn text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800;
+  }
+  .card {
+    @apply rounded-2xl bg-white shadow-soft ring-1 ring-slate-100
+           dark:bg-slate-900 dark:ring-slate-800;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-glow;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-violet-500 to-accent-500;
+  }
+  /* Lightweight article prose styling — doesn't require @tailwindcss/typography */
+  .prose-article { @apply text-slate-700 dark:text-slate-300 leading-relaxed; }
+  .prose-article h2 { @apply font-display font-bold text-2xl text-slate-900 dark:text-white mt-8 mb-3; }
+  .prose-article h3 { @apply font-display font-bold text-xl text-slate-900 dark:text-white mt-6 mb-2; }
+  .prose-article p  { @apply my-4; }
+  .prose-article a  { @apply text-brand-600 hover:text-brand-700 underline underline-offset-2 dark:text-brand-400; }
+  .prose-article ul { @apply list-disc pl-6 my-4 space-y-2; }
+  .prose-article ol { @apply list-decimal pl-6 my-4 space-y-2; }
+  .prose-article strong { @apply text-slate-900 dark:text-white font-semibold; }
+  .prose-article blockquote { @apply border-l-4 border-brand-400 pl-4 italic text-slate-600 dark:text-slate-400 my-4; }
+}
+
+/* ----- Nice scrollbar (optional, desktop only) ----- */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #a5b4fc; }
+  .dark ::-webkit-scrollbar-thumb { background: #3730a3; }
+  .dark ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+}
+
+/* ----- Hero background "mesh" ----- */
+.hero-mesh {
+  background-image:
+    radial-gradient(at 20% 20%, rgba(99,102,241,0.25) 0, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(249,115,22,0.18) 0, transparent 45%),
+    radial-gradient(at 70% 80%, rgba(168,85,247,0.22) 0, transparent 50%),
+    radial-gradient(at 0% 80%, rgba(14,165,233,0.18) 0, transparent 45%);
+}
+.dark .hero-mesh {
+  background-image:
+    radial-gradient(at 20% 20%, rgba(99,102,241,0.35) 0, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(249,115,22,0.20) 0, transparent 45%),
+    radial-gradient(at 70% 80%, rgba(168,85,247,0.35) 0, transparent 50%),
+    radial-gradient(at 0% 80%, rgba(14,165,233,0.25) 0, transparent 45%);
+}

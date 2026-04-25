@@ -8,6 +8,7 @@ const navItems = [
   { to: '/tools',      label: 'AI Tools' },
   { to: '/free-tools', label: 'Free Tools' },
   { to: '/blog',       label: 'Blog' },
+  { to: '/news',       label: 'News' },
   { to: '/about',      label: 'About' },
   { to: '/contact',    label: 'Contact' },
 ]

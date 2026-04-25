@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Sparkles, ArrowRight, Wand2, BookOpen, Rocket, TrendingUp, Star, Users, Zap } from 'lucide-react'
+import { Sparkles, ArrowRight, Wand2, BookOpen, Rocket, TrendingUp, Star, Users, Zap, Newspaper, ExternalLink } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import SearchBar from '../components/SearchBar.jsx'
 import ToolCard from '../components/ToolCard.jsx'
@@ -10,6 +10,7 @@ import Newsletter from '../components/Newsletter.jsx'
 import { getTrendingTools } from '../data/tools.js'
 import { articles, getPopular, getFeatured } from '../data/articles.js'
 import { categories } from '../data/categories.js'
+import { getTrendingNews } from '../data/news.js'
 
 export default function Home() {
   const [q, setQ] = useState('')
@@ -17,6 +18,7 @@ export default function Home() {
   const trending = getTrendingTools().slice(0, 6)
   const popular = getPopular().slice(0, 3)
   const featured = getFeatured()[0]
+  const trendingNews = getTrendingNews().slice(0, 3)
 
   const onSearch = (value) => {
     if (!value.trim()) return
@@ -72,7 +74,7 @@ export default function Home() {
             {[
               { icon: Users, n: '200k+', l: 'Monthly readers' },
               { icon: Star, n: '1,200+', l: 'Curated AI tools' },
-              { icon: Zap, n: '4', l: 'Free mini tools' },
+              { icon: Zap, n: '8', l: 'Free mini tools' },
             ].map((s, i) => (
               <div key={i} className="card p-4">
                 <s.icon className="w-5 h-5 text-brand-500 mx-auto" />
@@ -185,6 +187,52 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ==================== NEWS STRIP ==================== */}
+      {trendingNews.length > 0 && (
+        <section className="container-site mt-20">
+          <header className="flex items-end justify-between mb-6">
+            <div>
+              <div className="inline-flex items-center gap-2 chip bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
+                <Newspaper className="w-3.5 h-3.5" /> Latest AI news
+              </div>
+              <h2 className="mt-2 font-display font-extrabold text-2xl md:text-3xl text-slate-900 dark:text-white">
+                What&rsquo;s happening in AI
+              </h2>
+            </div>
+            <Link to="/news" className="hidden sm:inline-flex items-center gap-1 text-brand-600 font-semibold text-sm hover:text-brand-700">
+              All news <ArrowRight className="w-4 h-4" />
+            </Link>
+          </header>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {trendingNews.map((item) => (
+              <a
+                key={item.id}
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card p-5 group hover:-translate-y-1 hover:shadow-glow transition block"
+              >
+                <div className={`h-1 w-full rounded-full bg-gradient-to-r ${item.color} mb-4`} />
+                <div className="text-2xl mb-2">{item.emoji}</div>
+                <h3 className="font-semibold text-slate-900 dark:text-white leading-snug line-clamp-2 group-hover:text-brand-600 transition-colors">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{item.summary}</p>
+                <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
+                  <span>{item.source}</span>
+                  <ExternalLink className="w-3 h-3" />
+                </div>
+              </a>
+            ))}
+          </div>
+          <div className="mt-4 text-center sm:hidden">
+            <Link to="/news" className="text-brand-600 font-semibold text-sm hover:text-brand-700">
+              View all news <ArrowRight className="w-4 h-4 inline" />
+            </Link>
+          </div>
+        </section>
+      )}
+
       {/* ==================== FREE TOOLS PROMO ==================== */}
       <section className="container-site mt-20">
         <div className="relative overflow-hidden rounded-3xl p-8 md:p-14 card">
@@ -196,16 +244,20 @@ export default function Home() {
                 Free mini tools you&rsquo;ll actually use.
               </h2>
               <p className="mt-3 text-slate-600 dark:text-slate-300 max-w-md">
-                Four fast tools, zero fluff: prompt generator, business name generator,
-                study planner and an online income calculator.
+                Eight fast tools, zero fluff: prompt generator, word counter, Pomodoro timer,
+                password checker, color palette, business name generator and more.
               </p>
               <Link to="/free-tools" className="btn-primary mt-5">
                 <Wand2 className="w-4 h-4" /> Try a free tool
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-2 gap-3">
               {[
                 { e: '🧠', t: 'Prompt Generator', s: 'Write killer AI prompts' },
+                { e: '📝', t: 'Word Counter', s: 'Count + readability score' },
+                { e: '⏱️', t: 'Pomodoro Timer', s: 'Focus in 25-min sprints' },
+                { e: '🔐', t: 'Password Checker', s: 'Instant strength score' },
+                { e: '🎨', t: 'Color Palette', s: 'Generate palettes instantly' },
                 { e: '🏷️', t: 'Business Name', s: 'Creative brand ideas' },
                 { e: '📚', t: 'Study Planner', s: 'Ace your next exam' },
                 { e: '💰', t: 'Income Calculator', s: 'Project your earnings' },

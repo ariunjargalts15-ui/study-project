@@ -15,7 +15,7 @@ export default function Footer() {
             <span className="gradient-text">AI Tools Hub</span>
           </Link>
           <p className="mt-4 text-sm text-slate-500 dark:text-slate-400 max-w-sm">
-            Your daily stop for the best AI tools, practical guides, and free utilities
+            Your daily stop for the best AI tools, practical guides, news, and free utilities
             that help you learn, build, and earn online.
           </p>
           <div className="mt-5 flex gap-2">
@@ -34,6 +34,7 @@ export default function Footer() {
             <li><Link to="/tools" className="hover:text-brand-600">AI Tools</Link></li>
             <li><Link to="/blog" className="hover:text-brand-600">Blog</Link></li>
             <li><Link to="/free-tools" className="hover:text-brand-600">Free Tools</Link></li>
+            <li><Link to="/news" className="hover:text-brand-600">AI News</Link></li>
             <li><Link to="/about" className="hover:text-brand-600">About</Link></li>
           </ul>
         </div>

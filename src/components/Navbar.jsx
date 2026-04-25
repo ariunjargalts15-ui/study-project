@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Menu, X, Moon, Sun, Search, Sparkles } from 'lucide-react'
+import { Menu, X, Moon, Sun, Search, GraduationCap } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
 
 const navItems = [
   { to: '/',           label: 'Home' },
   { to: '/tools',      label: 'AI Tools' },
+  { to: '/blog',       label: 'Guides' },
   { to: '/free-tools', label: 'Free Tools' },
-  { to: '/blog',       label: 'Blog' },
   { to: '/news',       label: 'News' },
   { to: '/about',      label: 'About' },
-  { to: '/contact',    label: 'Contact' },
 ]
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen]       = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [q, setQ] = useState('')
-  const { theme, toggle } = useTheme()
-  const nav = useNavigate()
+  const [q, setQ]             = useState('')
+  const { theme, toggle }     = useTheme()
+  const nav                   = useNavigate()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -43,15 +42,15 @@ export default function Navbar() {
     >
       <div className="container-site flex items-center gap-4 py-3">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 font-display font-extrabold text-lg">
+        <Link to="/" className="flex items-center gap-2 font-display font-extrabold text-lg flex-shrink-0">
           <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-600 to-accent-500 grid place-items-center text-white shadow-soft">
-            <Sparkles className="w-4 h-4" />
+            <GraduationCap className="w-4 h-4" />
           </span>
-          <span className="gradient-text">AI Tools Hub</span>
+          <span className="gradient-text hidden sm:block">StudyAI Tools</span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-1 ml-6">
+        <nav className="hidden xl:flex items-center gap-1 ml-4">
           {navItems.map((n) => (
             <NavLink
               key={n.to}
@@ -78,8 +77,8 @@ export default function Navbar() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               type="search"
-              placeholder="Search tools & guides…"
-              className="pl-9 pr-4 py-2 rounded-full text-sm w-56 lg:w-72
+              placeholder="Find AI tools for students…"
+              className="pl-9 pr-4 py-2 rounded-full text-sm w-52 lg:w-64
                          bg-slate-100 dark:bg-slate-800 ring-1 ring-transparent
                          focus:bg-white dark:focus:bg-slate-900 focus:ring-brand-400 outline-none transition"
             />
@@ -100,7 +99,7 @@ export default function Navbar() {
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label="Menu"
-          className="lg:hidden w-10 h-10 rounded-full grid place-items-center text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+          className="xl:hidden w-10 h-10 rounded-full grid place-items-center text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -108,7 +107,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+        <div className="xl:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
           <div className="container-site py-4 flex flex-col gap-1">
             <form onSubmit={onSearch} className="relative mb-2">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -116,7 +115,7 @@ export default function Navbar() {
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 type="search"
-                placeholder="Search…"
+                placeholder="Find AI tools…"
                 className="w-full pl-9 pr-4 py-2.5 rounded-full text-sm bg-slate-100 dark:bg-slate-800 outline-none focus:ring-2 focus:ring-brand-400"
               />
             </form>

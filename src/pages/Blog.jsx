@@ -37,8 +37,9 @@ export default function Blog() {
   return (
     <>
       <SEO
-        title="The Blog — AI, Business & Productivity Guides"
-        description="Short, honest guides on AI, making money online, business ideas, app ideas, language learning and productivity."
+        title="AI Guides for Students — Homework, Studying, IELTS & Productivity"
+        description="Short, practical guides on using AI for homework, studying smarter, IELTS prep, language learning, coding, and productivity. Updated weekly for students."
+        url="/blog"
       />
 
       <section className="hero-mesh">

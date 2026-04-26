@@ -38,21 +38,26 @@ export default function Tools() {
   return (
     <>
       <SEO
-        title="AI Tools Directory"
-        description="Browse and filter the best AI tools by category — writing, design, productivity, language, business and more."
+        title="Best AI Tools for Students — Full Directory"
+        description="Browse 35+ hand-picked AI tools for students by category: homework help, writing, research, productivity, image, video, language learning, note taking, and coding."
+        url="/tools"
       />
 
       {/* Header */}
       <section className="hero-mesh">
         <div className="container-site py-14 text-center">
+          <span className="chip bg-white dark:bg-slate-800 ring-1 ring-slate-200 dark:ring-slate-700 text-brand-700 dark:text-brand-300 mb-4">
+            35+ tools reviewed
+          </span>
           <h1 className="font-display font-extrabold text-3xl md:text-5xl tracking-tight text-slate-900 dark:text-white">
-            The AI Tools <span className="gradient-text">Directory</span>
+            AI Tools <span className="gradient-text">for Students</span>
           </h1>
           <p className="mt-3 max-w-xl mx-auto text-slate-600 dark:text-slate-300">
-            Hand-picked tools, filtered by category. Save your favorites with the heart icon.
+            Hand-picked AI tools for homework, writing, research, coding, language learning, and more.
+            Filter by category and save your favorites.
           </p>
           <div className="mt-6 max-w-xl mx-auto">
-            <SearchBar value={q} onChange={setQ} placeholder="Search tools by name, tag or use case…" />
+            <SearchBar value={q} onChange={setQ} placeholder="Search tools… try &quot;free&quot;, &quot;math&quot;, &quot;IELTS&quot;" />
           </div>
         </div>
       </section>

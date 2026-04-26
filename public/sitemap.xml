@@ -1,11 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://studyaitools.biz/</loc><priority>1.0</priority></url>
-  <url><loc>https://studyaitools.biz/tools</loc><priority>0.9</priority></url>
-  <url><loc>https://studyaitools.biz/blog</loc><priority>0.9</priority></url>
-  <url><loc>https://studyaitools.biz/free-tools</loc><priority>0.9</priority></url>
-  <url><loc>https://studyaitools.biz/about</loc><priority>0.5</priority></url>
-  <url><loc>https://studyaitools.biz/contact</loc><priority>0.5</priority></url>
-  <url><loc>https://studyaitools.biz/privacy</loc><priority>0.3</priority></url>
-  <url><loc>https://studyaitools.biz/terms</loc><priority>0.3</priority></url>
+  <!-- Core pages -->
+  <url><loc>https://studyaitools.biz/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://studyaitools.biz/tools</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://studyaitools.biz/blog</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://studyaitools.biz/free-tools</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/news</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+
+  <!-- Tool detail pages -->
+  <url><loc>https://studyaitools.biz/tools/chatgpt</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/tools/claude</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/tools/gemini</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/tools/wolfram-alpha</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/photomath</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/khanmigo</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/grammarly</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/tools/quillbot</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/hemingway</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/wordtune</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/perplexity</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/tools/notebooklm</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/tools/elicit</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/consensus</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/chatpdf</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/notion-ai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/otter-ai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/motion</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/reclaim</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/midjourney</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/canva</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/adobe-firefly</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/leonardo-ai</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/runway</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/fliki</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/heygen</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/descript</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/duolingo-max</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/pimsleur</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/speechling</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/ling-app</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/elevenlabs-language</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/mem-ai</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/reflect</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/cursor</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/github-copilot</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/tools/replit-ai</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/tools/tabnine</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Blog articles -->
+  <url><loc>https://studyaitools.biz/blog/top-10-ai-tools-for-students-2026</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://studyaitools.biz/blog/best-free-homework-ai-websites</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://studyaitools.biz/blog/how-to-study-faster-with-ai</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/blog/best-chatgpt-alternatives-for-students</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/blog/top-ai-tools-ielts-preparation</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/blog/best-ai-tools-chinese-learners</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/blog/ai-tools-save-time-busy-students</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/blog/chatgpt-vs-claude-vs-gemini</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://studyaitools.biz/blog/cursor-vs-copilot-vs-tabnine</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/blog/make-money-with-ai-2026</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://studyaitools.biz/blog/best-ai-tools-productivity</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/blog/learn-language-with-ai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://studyaitools.biz/blog/prompt-engineering-basics</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+
+  <!-- Trust & legal pages -->
+  <url><loc>https://studyaitools.biz/about</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://studyaitools.biz/contact</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://studyaitools.biz/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://studyaitools.biz/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://studyaitools.biz/disclaimer</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
 </urlset>

@@ -1,14 +1,17 @@
-// Categories used across Tools and Blog pages.
-// To add a new category, just add an entry here — all filters update automatically.
+// Categories used across the Tools directory and Blog page filters.
+// To add a category: add an entry here — all filters update automatically.
 export const categories = [
-  { slug: 'ai',               name: 'AI',                color: 'from-indigo-500 to-violet-500', icon: 'Sparkles' },
-  { slug: 'business',         name: 'Business Ideas',    color: 'from-emerald-500 to-teal-500',  icon: 'Briefcase' },
-  { slug: 'online-income',    name: 'Online Income',     color: 'from-amber-500 to-orange-500',  icon: 'DollarSign' },
-  { slug: 'app-ideas',        name: 'App Ideas',         color: 'from-pink-500 to-rose-500',     icon: 'Smartphone' },
-  { slug: 'language',         name: 'Language Learning', color: 'from-sky-500 to-blue-500',      icon: 'Languages' },
-  { slug: 'productivity',     name: 'Productivity',      color: 'from-fuchsia-500 to-purple-500',icon: 'Zap' },
-  { slug: 'writing',          name: 'Writing',           color: 'from-red-500 to-pink-500',      icon: 'PenLine' },
-  { slug: 'design',           name: 'Design',            color: 'from-cyan-500 to-blue-500',     icon: 'Palette' },
+  { slug: 'homework',    name: 'Homework Help',       color: 'from-indigo-500 to-violet-600',  icon: 'BookOpen' },
+  { slug: 'writing',     name: 'Writing Tools',       color: 'from-rose-500 to-pink-500',      icon: 'PenLine' },
+  { slug: 'research',    name: 'Research Tools',      color: 'from-teal-500 to-cyan-500',      icon: 'Search' },
+  { slug: 'productivity',name: 'Productivity',        color: 'from-fuchsia-500 to-purple-500', icon: 'Zap' },
+  { slug: 'image',       name: 'Image Tools',         color: 'from-amber-500 to-orange-500',   icon: 'Image' },
+  { slug: 'video',       name: 'Video Tools',         color: 'from-red-500 to-rose-500',       icon: 'Video' },
+  { slug: 'language',    name: 'Language Learning',   color: 'from-sky-500 to-blue-500',       icon: 'Languages' },
+  { slug: 'note-taking', name: 'Note Taking',         color: 'from-emerald-500 to-teal-500',   icon: 'StickyNote' },
+  { slug: 'coding',      name: 'Coding Tools',        color: 'from-slate-600 to-slate-800',    icon: 'Code2' },
+  // Legacy slugs kept so old articles still match the filter
+  { slug: 'ai',          name: 'AI General',          color: 'from-violet-500 to-indigo-500',  icon: 'Sparkles' },
 ]
 
 export const getCategory = (slug) => categories.find((c) => c.slug === slug)

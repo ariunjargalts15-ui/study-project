@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
-  Sparkles, ArrowRight, Wand2, BookOpen, Rocket, TrendingUp, Star,
-  Users, Zap, Newspaper, ExternalLink, GraduationCap, PenLine,
-  Search, Code2, Languages, CheckCircle2,
+  Sparkles, ArrowRight, Wand2, BookOpen, Rocket, TrendingUp,
+  Newspaper, ExternalLink, GraduationCap,
+  CheckCircle2,
 } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import SearchBar from '../components/SearchBar.jsx'
@@ -15,15 +15,6 @@ import { getTrendingTools } from '../data/tools.js'
 import { articles, getPopular, getFeatured } from '../data/articles.js'
 import { categories } from '../data/categories.js'
 import { getTrendingNews } from '../data/news.js'
-
-const CATEGORY_ICONS = {
-  homework: GraduationCap,
-  writing: PenLine,
-  research: Search,
-  productivity: Zap,
-  language: Languages,
-  coding: Code2,
-}
 
 export default function Home() {
   const [q, setQ] = useState('')
@@ -100,12 +91,12 @@ export default function Home() {
           {/* Trust bar */}
           <div className="mt-12 grid grid-cols-3 gap-3 max-w-2xl mx-auto text-center">
             {[
-              { icon: Users,         n: '200k+', l: 'Monthly readers' },
-              { icon: Star,          n: '35+',   l: 'AI tools reviewed' },
-              { icon: GraduationCap, n: '9',     l: 'Tool categories' },
+              { emoji: '👥', n: '200k+', l: 'Monthly readers' },
+              { emoji: '⭐', n: '35+',   l: 'AI tools reviewed' },
+              { emoji: '🎓', n: '9',     l: 'Tool categories' },
             ].map((s, i) => (
               <div key={i} className="card p-4">
-                <s.icon className="w-5 h-5 text-brand-500 mx-auto" />
+                <div className="text-xl">{s.emoji}</div>
                 <div className="mt-1 font-display font-bold text-xl text-slate-900 dark:text-white">{s.n}</div>
                 <div className="text-xs text-slate-500 dark:text-slate-400">{s.l}</div>
               </div>
@@ -132,22 +123,19 @@ export default function Home() {
             View all <ArrowRight className="w-4 h-4" />
           </Link>
         </header>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          {categories.filter((c) => c.slug !== 'ai').slice(0, 9).map((c) => {
-            const Icon = CATEGORY_ICONS[c.slug] || Sparkles
-            return (
-              <Link
-                key={c.slug}
-                to={`/tools?cat=${c.slug}`}
-                className={`group relative overflow-hidden rounded-2xl p-5 text-white bg-gradient-to-br ${c.color} shadow-soft hover:shadow-glow hover:-translate-y-1 transition-all`}
-              >
-                <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-xl" />
-                <Icon className="w-5 h-5 mb-2 opacity-90" />
-                <div className="font-display font-bold text-sm leading-tight">{c.name}</div>
-                <div className="text-white/70 text-xs mt-0.5">Browse →</div>
-              </Link>
-            )
-          })}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {categories.filter((c) => c.slug !== 'ai').slice(0, 6).map((c) => (
+            <Link
+              key={c.slug}
+              to={`/tools?cat=${c.slug}`}
+              className={`group relative overflow-hidden rounded-2xl p-5 text-white bg-gradient-to-br ${c.color} shadow-soft hover:shadow-glow hover:-translate-y-1 transition-all`}
+            >
+              <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-xl" />
+              <div className="text-2xl mb-2">{c.emoji}</div>
+              <div className="font-display font-bold text-sm leading-tight">{c.name}</div>
+              <div className="text-white/70 text-xs mt-0.5">Browse →</div>
+            </Link>
+          ))}
         </div>
       </section>
 

@@ -5,6 +5,8 @@ import { HelmetProvider } from 'react-helmet-async'
 import App from './App.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx'
 import { FavoritesProvider } from './context/FavoritesContext.jsx'
+import { Analytics } from "@vercel/analytics/react"
+import './design-tokens.css'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -14,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <FavoritesProvider>
           <BrowserRouter>
             <App />
+            <Analytics />
           </BrowserRouter>
         </FavoritesProvider>
       </ThemeProvider>

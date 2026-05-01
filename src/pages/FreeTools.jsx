@@ -6,6 +6,7 @@ import {
 import SEO from '../components/SEO.jsx'
 import AdSlot from '../components/AdSlot.jsx'
 import PremiumModal from '../components/PremiumModal.jsx'
+import PaymentModal from '../components/PaymentModal.jsx'
 import PromptGenerator from '../tools/PromptGenerator.jsx'
 import BusinessNameGenerator from '../tools/BusinessNameGenerator.jsx'
 import StudyPlanner from '../tools/StudyPlanner.jsx'
@@ -128,6 +129,7 @@ export default function FreeTools() {
   const [category, setCategory]       = useState('all')
   const [search, setSearch]           = useState('')
   const [modalTool, setModalTool]     = useState(null)
+  const [paymentPlan, setPaymentPlan] = useState(null)
   const { isPro, reset: resetPro }    = usePro()
 
   const currentTool = FREE_TOOLS.find((t) => t.id === activeTool)
@@ -155,9 +157,14 @@ export default function FreeTools() {
         url="/free-tools"
       />
 
-      {/* Premium Modal */}
+      {/* Premium feature modal */}
       {modalTool && (
-        <PremiumModal tool={modalTool} onClose={() => setModalTool(null)} />
+        <PremiumModal tool={modalTool} onClose={() => setModalTool(null)} onUpgrade={setPaymentPlan} />
+      )}
+
+      {/* PayPal payment modal */}
+      {paymentPlan && (
+        <PaymentModal planKey={paymentPlan} onClose={() => setPaymentPlan(null)} />
       )}
 
       {/* ═══════════════ HERO ═══════════════ */}

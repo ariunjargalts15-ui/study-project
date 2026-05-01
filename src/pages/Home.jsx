@@ -8,6 +8,7 @@ import {
 import SEO from '../components/SEO.jsx'
 import AdSlot from '../components/AdSlot.jsx'
 import PremiumModal from '../components/PremiumModal.jsx'
+import PaymentModal from '../components/PaymentModal.jsx'
 import { premiumTools } from '../data/premiumTools.js'
 import { usePro } from '../context/ProContext.jsx'
 
@@ -148,7 +149,9 @@ function PremiumCard({ tool, isPro, onOpenModal }) {
 }
 
 /* ─── Pricing Card ────────────────────────────────────────────── */
-function PricingCard({ plan, featured }) {
+function PricingCard({ plan, featured, isPro, onPay }) {
+  const alreadyPro = isPro && plan.planKey
+
   return (
     <div
       className={`relative rounded-3xl overflow-hidden transition-all
@@ -191,15 +194,31 @@ function PricingCard({ plan, featured }) {
           ))}
         </ul>
 
-        <a
-          href={plan.href}
-          className={`block w-full py-3 rounded-2xl text-sm font-semibold text-center transition-all
-            ${featured
-              ? 'bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white shadow-lg shadow-brand-900/50'
-              : 'bg-white/8 hover:bg-white/12 text-white border border-white/10 hover:border-white/20'}`}
-        >
-          {plan.cta}
-        </a>
+        {/* CTA */}
+        {plan.planKey ? (
+          alreadyPro ? (
+            <div className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl text-sm font-semibold text-emerald-400 border border-emerald-700/30 bg-emerald-900/20">
+              <Check className="w-4 h-4" /> Already unlocked
+            </div>
+          ) : (
+            <button
+              onClick={() => onPay(plan.planKey)}
+              className={`w-full py-3 rounded-2xl text-sm font-semibold transition-all
+                ${featured
+                  ? 'bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white shadow-lg shadow-brand-900/50'
+                  : 'bg-white/8 hover:bg-white/12 text-white border border-white/10 hover:border-white/20'}`}
+            >
+              {plan.cta}
+            </button>
+          )
+        ) : (
+          <a
+            href={plan.ctaHref}
+            className="block w-full py-3 rounded-2xl text-sm font-semibold text-center bg-white/8 hover:bg-white/12 text-white border border-white/10 hover:border-white/20 transition-all"
+          >
+            {plan.cta}
+          </a>
+        )}
       </div>
     </div>
   )
@@ -207,7 +226,8 @@ function PricingCard({ plan, featured }) {
 
 /* ─── Main Component ──────────────────────────────────────────── */
 export default function Home() {
-  const [modalTool, setModalTool] = useState(null)
+  const [modalTool, setModalTool]     = useState(null)
+  const [paymentPlan, setPaymentPlan] = useState(null) // 'lifetime' | 'single'
   const { isPro } = usePro()
 
   const plans = [
@@ -216,8 +236,9 @@ export default function Home() {
       price: '$0',
       period: '/forever',
       desc: 'All basic tools, no signup needed.',
-      href: '/free-tools',
+      planKey: null,
       cta: 'Get Started Free',
+      ctaHref: '/free-tools',
       features: [
         'All 8 basic tools',
         'Prompt Generator',
@@ -232,7 +253,7 @@ export default function Home() {
       price: '$19.99',
       period: 'one-time',
       desc: 'Every tool, forever. Best value.',
-      href: '#pricing',
+      planKey: 'lifetime',
       cta: 'Unlock Everything →',
       features: [
         'All 8 free tools included',
@@ -250,7 +271,7 @@ export default function Home() {
       price: '$3.99',
       period: '/tool',
       desc: 'Try any one premium tool.',
-      href: '#pricing',
+      planKey: 'single',
       cta: 'Choose a Tool',
       features: [
         'Unlock any ONE premium tool',
@@ -281,9 +302,14 @@ export default function Home() {
         }}
       />
 
-      {/* Premium Modal */}
+      {/* Premium feature modal */}
       {modalTool && (
-        <PremiumModal tool={modalTool} onClose={() => setModalTool(null)} />
+        <PremiumModal tool={modalTool} onClose={() => setModalTool(null)} onUpgrade={setPaymentPlan} />
+      )}
+
+      {/* PayPal payment modal */}
+      {paymentPlan && (
+        <PaymentModal planKey={paymentPlan} onClose={() => setPaymentPlan(null)} />
       )}
 
       {/* ═══════════════ HERO ═══════════════ */}
@@ -482,7 +508,7 @@ export default function Home() {
             <p className="mt-2 text-slate-400">11 advanced tools for serious work. Unlock once, use forever.</p>
           </div>
           <button
-            onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => setPaymentPlan('lifetime')}
             className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white text-sm font-semibold transition whitespace-nowrap shadow-lg shadow-brand-900/40"
           >
             <Zap className="w-4 h-4" /> Unlock All — $19.99
@@ -510,10 +536,10 @@ export default function Home() {
               One-time payment. Lifetime access. No subscriptions, no hidden fees.
             </p>
             <button
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => setPaymentPlan('lifetime')}
               className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold transition-all shadow-lg shadow-brand-900/50"
             >
-              <Zap className="w-5 h-5" /> See Pricing Plans
+              <Zap className="w-5 h-5" /> Unlock Now — $19.99
             </button>
           </div>
         )}
@@ -534,9 +560,9 @@ export default function Home() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-center">
-          <PricingCard plan={plans[0]} featured={false} />
-          <PricingCard plan={plans[1]} featured={true} />
-          <PricingCard plan={plans[2]} featured={false} />
+          <PricingCard plan={plans[0]} featured={false} isPro={isPro} onPay={setPaymentPlan} />
+          <PricingCard plan={plans[1]} featured={true}  isPro={isPro} onPay={setPaymentPlan} />
+          <PricingCard plan={plans[2]} featured={false} isPro={isPro} onPay={setPaymentPlan} />
         </div>
 
         <p className="text-center mt-8 text-xs text-slate-600">

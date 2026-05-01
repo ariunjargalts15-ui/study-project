@@ -1,7 +1,7 @@
 import { X, Lock, CheckCircle2, Zap, Star } from 'lucide-react'
 import { usePro } from '../context/ProContext.jsx'
 
-export default function PremiumModal({ tool, onClose }) {
+export default function PremiumModal({ tool, onClose, onUpgrade }) {
   const { unlock } = usePro()
 
   if (!tool) return null
@@ -73,13 +73,12 @@ export default function PremiumModal({ tool, onClose }) {
           </div>
 
           {/* CTA */}
-          <a
-            href="/#pricing"
-            onClick={onClose}
+          <button
+            onClick={() => { onClose(); onUpgrade?.('lifetime') }}
             className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold py-3 text-sm transition-all shadow-lg shadow-brand-900/50 hover:shadow-brand-700/50"
           >
             <Zap className="w-4 h-4" /> Upgrade to Pro — $19.99
-          </a>
+          </button>
 
           {/* Simulate purchase for testing */}
           <button

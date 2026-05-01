@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { Menu, X, Moon, Sun, Search, Zap, Sparkles } from 'lucide-react'
+import { Menu, X, Moon, Sun, Search, Zap, Sparkles, LogOut, LogIn } from 'lucide-react'
 import { useTheme } from '../context/ThemeContext.jsx'
 import { usePro } from '../context/ProContext.jsx'
+import { useAuth } from '../context/AuthContext.jsx'
 
 const navItems = [
   { to: '/free-tools', label: 'Tools' },
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [q, setQ]               = useState('')
   const { theme, toggle }       = useTheme()
   const { isPro }               = usePro()
+  const { user, signIn, logOut } = useAuth()
   const nav                     = useNavigate()
   const location                = useLocation()
 
@@ -122,10 +124,30 @@ export default function Navbar() {
             {theme === 'dark' ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
           </button>
 
-          {/* Login (placeholder) */}
-          <button className="hidden sm:block px-4 py-2 rounded-xl text-sm font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition">
-            Login
-          </button>
+          {/* Auth button */}
+          {user ? (
+            <div className="hidden sm:flex items-center gap-2">
+              <img
+                src={user.photoURL}
+                alt={user.displayName}
+                referrerPolicy="no-referrer"
+                className="w-8 h-8 rounded-full ring-2 ring-white/10"
+              />
+              <button
+                onClick={logOut}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition"
+              >
+                <LogOut className="w-3.5 h-3.5" /> Sign out
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={signIn}
+              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition"
+            >
+              <LogIn className="w-3.5 h-3.5" /> Login
+            </button>
+          )}
 
           {/* Upgrade / Pro badge */}
           {isPro ? (
@@ -195,9 +217,21 @@ export default function Navbar() {
             </button>
 
             <div className="mt-2 pt-3 border-t border-white/5 flex gap-2">
-              <button className="flex-1 py-2.5 rounded-xl text-sm font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition">
-                Login
-              </button>
+              {user ? (
+                <button
+                  onClick={logOut}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition"
+                >
+                  <LogOut className="w-3.5 h-3.5" /> Sign out ({user.displayName?.split(' ')[0]})
+                </button>
+              ) : (
+                <button
+                  onClick={signIn}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition"
+                >
+                  <LogIn className="w-3.5 h-3.5" /> Login with Google
+                </button>
+              )}
               {!isPro && (
                 <button
                   onClick={() => scrollToSection('pricing')}

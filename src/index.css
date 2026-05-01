@@ -4,7 +4,7 @@
 
 /* ----- Global base styles ----- */
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 }
 .dark {
   color-scheme: dark;
@@ -15,82 +15,144 @@ html {
 }
 
 body {
-  @apply font-sans text-slate-800 bg-slate-50 antialiased;
+  @apply font-sans text-slate-200 bg-slate-950 antialiased;
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
 }
-.dark body {
-  @apply text-slate-200 bg-slate-950;
-}
 
-/* Subtle selection color */
-::selection { background: #c7d2fe; color: #1e1b4b; }
-.dark ::selection { background: #4f46e5; color: #fff; }
+::selection { background: #4f46e5; color: #fff; }
 
 /* ----- Utility components ----- */
 @layer components {
   .container-site {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
+
+  /* Buttons */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold text-sm px-5 py-2.5 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500;
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold text-sm px-5 py-2.5
+           transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-500;
   }
   .btn-primary {
-    @apply btn bg-brand-600 text-white hover:bg-brand-700 shadow-soft hover:shadow-glow;
+    @apply btn bg-gradient-to-r from-brand-600 to-violet-600 text-white hover:from-brand-500 hover:to-violet-500
+           shadow-lg shadow-brand-900/40 hover:shadow-brand-700/40 hover:-translate-y-0.5;
   }
   .btn-secondary {
-    @apply btn bg-white text-brand-700 ring-1 ring-inset ring-brand-200 hover:bg-brand-50
-           dark:bg-slate-900 dark:text-brand-300 dark:ring-slate-700 dark:hover:bg-slate-800;
+    @apply btn border border-white/15 bg-white/5 text-white hover:bg-white/10 hover:border-white/25;
   }
   .btn-ghost {
-    @apply btn text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800;
+    @apply btn text-slate-400 hover:text-white hover:bg-white/5;
   }
+
+  /* Cards */
   .card {
-    @apply rounded-2xl bg-white shadow-soft ring-1 ring-slate-100
-           dark:bg-slate-900 dark:ring-slate-800;
+    @apply rounded-2xl bg-slate-900 border border-white/10;
   }
   .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-glow;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40;
   }
+
+  /* Glassmorphism card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Chips / badges */
   .chip {
     @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
   }
+
+  /* Gradient text */
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-600 via-violet-500 to-accent-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-400 via-violet-400 to-cyan-400;
   }
-  /* Lightweight article prose styling — doesn't require @tailwindcss/typography */
-  .prose-article { @apply text-slate-700 dark:text-slate-300 leading-relaxed; }
-  .prose-article h2 { @apply font-display font-bold text-2xl text-slate-900 dark:text-white mt-8 mb-3; }
-  .prose-article h3 { @apply font-display font-bold text-xl text-slate-900 dark:text-white mt-6 mb-2; }
+
+  /* Pro badge */
+  .pro-badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold
+           bg-gradient-to-r from-amber-500 to-orange-500 text-white;
+  }
+
+  /* Article prose */
+  .prose-article { @apply text-slate-300 leading-relaxed; }
+  .prose-article h2 { @apply font-display font-bold text-2xl text-white mt-8 mb-3; }
+  .prose-article h3 { @apply font-display font-bold text-xl text-white mt-6 mb-2; }
   .prose-article p  { @apply my-4; }
-  .prose-article a  { @apply text-brand-600 hover:text-brand-700 underline underline-offset-2 dark:text-brand-400; }
+  .prose-article a  { @apply text-brand-400 hover:text-brand-300 underline underline-offset-2; }
   .prose-article ul { @apply list-disc pl-6 my-4 space-y-2; }
   .prose-article ol { @apply list-decimal pl-6 my-4 space-y-2; }
-  .prose-article strong { @apply text-slate-900 dark:text-white font-semibold; }
-  .prose-article blockquote { @apply border-l-4 border-brand-400 pl-4 italic text-slate-600 dark:text-slate-400 my-4; }
+  .prose-article strong { @apply text-white font-semibold; }
+  .prose-article blockquote { @apply border-l-4 border-brand-500 pl-4 italic text-slate-400 my-4; }
 }
 
-/* ----- Nice scrollbar (optional, desktop only) ----- */
+/* ----- Scrollbar ----- */
 @media (min-width: 768px) {
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 999px; }
-  ::-webkit-scrollbar-thumb:hover { background: #a5b4fc; }
-  .dark ::-webkit-scrollbar-thumb { background: #3730a3; }
-  .dark ::-webkit-scrollbar-thumb:hover { background: #4f46e5; }
+  ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.5); }
 }
 
-/* ----- Hero background "mesh" ----- */
+/* ----- Hero backgrounds ----- */
 .hero-mesh {
   background-image:
     radial-gradient(at 20% 20%, rgba(99,102,241,0.25) 0, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(249,115,22,0.18) 0, transparent 45%),
+    radial-gradient(at 80% 0%,  rgba(249,115,22,0.18) 0, transparent 45%),
     radial-gradient(at 70% 80%, rgba(168,85,247,0.22) 0, transparent 50%),
-    radial-gradient(at 0% 80%, rgba(14,165,233,0.18) 0, transparent 45%);
+    radial-gradient(at 0%  80%, rgba(14,165,233,0.18) 0, transparent 45%);
 }
-.dark .hero-mesh {
-  background-image:
-    radial-gradient(at 20% 20%, rgba(99,102,241,0.35) 0, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(249,115,22,0.20) 0, transparent 45%),
-    radial-gradient(at 70% 80%, rgba(168,85,247,0.35) 0, transparent 50%),
-    radial-gradient(at 0% 80%, rgba(14,165,233,0.25) 0, transparent 45%);
+
+/* Premium dark hero */
+.hero-premium {
+  background:
+    radial-gradient(ellipse at 20% 0%,   rgba(99,102,241,0.18) 0, transparent 55%),
+    radial-gradient(ellipse at 80% 20%,  rgba(139,92,246,0.12) 0, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(59,130,246,0.08)  0, transparent 50%),
+    #020617;
 }
+
+/* ----- Neon glow effects ----- */
+.neon-glow {
+  box-shadow:
+    0 0 40px -10px rgba(99,102,241,0.6),
+    0 0 80px -20px rgba(99,102,241,0.3);
+}
+
+/* ----- Animations ----- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes pulseSlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.08); }
+}
+
+.animate-fade-in    { animation: fadeIn   0.5s ease-out; }
+.animate-slide-up   { animation: slideUp  0.5s ease-out; }
+.animate-float      { animation: float    6s ease-in-out infinite; }
+.animate-pulse-slow { animation: pulseSlow 4s ease-in-out infinite; }
+
+/* ----- Tool input styles (shared across tool components) ----- */
+.tool-input {
+  @apply w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10
+         text-slate-200 placeholder-slate-500 outline-none text-sm
+         focus:border-brand-500/60 transition;
+}
+.tool-select {
+  @apply w-full px-4 py-3 rounded-xl bg-slate-800 border border-white/10
+         text-slate-200 outline-none text-sm focus:border-brand-500/60 transition;
+}
+
+/* Legacy light-mode classes still used by existing tool components */
+.dark body { @apply text-slate-200 bg-slate-950; }

@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { Menu, X, Moon, Sun, Search, Zap, Sparkles, LogOut, LogIn } from 'lucide-react'
-import { useTheme } from '../context/ThemeContext.jsx'
+import { Menu, X, Search, Zap, LogOut, LogIn } from 'lucide-react'
 import { usePro } from '../context/ProContext.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
 
 const navItems = [
-  { to: '/free-tools', label: 'Tools' },
+  { to: '/free-tools', label: 'Free Tools' },
   { to: '/tools',      label: 'AI Directory' },
   { to: '/blog',       label: 'Guides' },
 ]
@@ -15,14 +14,13 @@ export default function Navbar() {
   const [open, setOpen]         = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [q, setQ]               = useState('')
-  const { theme, toggle }       = useTheme()
   const { isPro }               = usePro()
   const { user, signIn, logOut } = useAuth()
   const nav                     = useNavigate()
   const location                = useLocation()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const onScroll = () => setScrolled(window.scrollY > 24)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -48,36 +46,35 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-all duration-300
-        ${scrolled
-          ? 'bg-slate-950/90 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20'
-          : 'bg-slate-950/70 backdrop-blur-lg border-b border-transparent'}`}
+      style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 40,
+        transition: 'background 0.4s ease, box-shadow 0.4s ease',
+        background: scrolled ? 'rgba(0, 26, 46, 0.85)' : 'transparent',
+        WebkitBackdropFilter: scrolled ? 'blur(18px) saturate(130%)' : 'none',
+        backdropFilter: scrolled ? 'blur(18px) saturate(130%)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+      }}
     >
-      <div className="container-site flex items-center gap-3 py-3.5">
+      <div className="container-site flex items-center gap-4 py-5">
 
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 flex-shrink-0 group">
-          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-brand-600 to-violet-500 grid place-items-center text-white shadow-lg shadow-brand-900/50 group-hover:shadow-brand-700/50 transition-shadow">
-            <Sparkles className="w-4 h-4" />
-          </span>
-          <span className="font-display font-extrabold text-lg gradient-text hidden sm:block">
-            StudyAI Tools
+        <Link to="/" className="flex-shrink-0">
+          <span className="font-serif text-2xl text-white" style={{ letterSpacing: '-0.02em', lineHeight: 1 }}>
+            StudyAI<sup style={{ fontSize: 10, fontFamily: 'Inter, sans-serif', opacity: 0.7, verticalAlign: 'super', marginLeft: 2 }}>®</sup>
           </span>
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden lg:flex items-center gap-0.5 ml-3">
+        <nav className="hidden lg:flex items-center gap-9 ml-6">
           {navItems.map((n) => (
             <NavLink
               key={n.to}
               to={n.to}
               end={n.to === '/'}
               className={({ isActive }) =>
-                `px-3.5 py-2 rounded-xl text-sm font-medium transition-colors
-                 ${isActive
-                    ? 'text-white bg-white/10'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
-                 }`
+                `text-sm transition-colors duration-200 ${isActive ? 'text-white' : 'text-white/50 hover:text-white'}`
               }
             >
               {n.label}
@@ -85,57 +82,48 @@ export default function Navbar() {
           ))}
           <button
             onClick={() => scrollToSection('pricing')}
-            className="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+            className="text-sm text-white/50 hover:text-white transition-colors duration-200"
           >
             Pricing
           </button>
           <button
             onClick={() => scrollToSection('faq')}
-            className="px-3.5 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+            className="text-sm text-white/50 hover:text-white transition-colors duration-200"
           >
             FAQ
           </button>
         </nav>
 
-        {/* Search (desktop) */}
+        {/* Search */}
         <form onSubmit={onSearch} className="hidden md:flex ml-auto items-center">
           <label className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               type="search"
               placeholder="Search tools…"
-              className="pl-9 pr-4 py-2 rounded-xl text-sm w-44 lg:w-52
-                         bg-white/5 border border-white/10 text-slate-300 placeholder-slate-500
-                         focus:bg-white/8 focus:border-brand-500/50 outline-none transition"
+              className="pl-9 pr-4 py-2 rounded-full text-sm w-44 lg:w-52 text-white/80 placeholder-white/25 outline-none transition"
+              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
             />
           </label>
         </form>
 
         {/* Right actions */}
-        <div className="flex items-center gap-2 ml-2 md:ml-0">
-          {/* Theme toggle */}
-          <button
-            onClick={toggle}
-            aria-label="Toggle theme"
-            className="w-9 h-9 rounded-xl grid place-items-center text-slate-400 hover:text-white hover:bg-white/5 transition"
-          >
-            {theme === 'dark' ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
-          </button>
+        <div className="flex items-center gap-3 ml-2 md:ml-0">
 
-          {/* Auth button */}
+          {/* Auth */}
           {user ? (
             <div className="hidden sm:flex items-center gap-2">
               <img
                 src={user.photoURL}
                 alt={user.displayName}
                 referrerPolicy="no-referrer"
-                className="w-8 h-8 rounded-full ring-2 ring-white/10"
+                className="w-7 h-7 rounded-full ring-1 ring-white/20"
               />
               <button
                 onClick={logOut}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition"
+                className="flex items-center gap-1.5 text-xs text-white/40 hover:text-white/80 transition"
               >
                 <LogOut className="w-3.5 h-3.5" /> Sign out
               </button>
@@ -143,7 +131,7 @@ export default function Navbar() {
           ) : (
             <button
               onClick={signIn}
-              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition"
+              className="hidden sm:flex items-center gap-1.5 text-sm text-white/40 hover:text-white/80 transition"
             >
               <LogIn className="w-3.5 h-3.5" /> Login
             </button>
@@ -151,23 +139,26 @@ export default function Navbar() {
 
           {/* Upgrade / Pro badge */}
           {isPro ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-600/20 to-orange-600/20 border border-amber-500/30 text-amber-400 text-xs font-bold">
-              <Zap className="w-3.5 h-3.5 fill-current" /> PRO
+            <div
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-amber-400 text-xs font-bold"
+              style={{ background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.25)' }}
+            >
+              <Zap className="w-3 h-3 fill-current" /> PRO
             </div>
           ) : (
             <button
               onClick={() => scrollToSection('pricing')}
-              className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 transition shadow-lg shadow-brand-900/30 hover:shadow-brand-700/40"
+              className="liquid-glass hidden sm:flex items-center gap-1.5 px-5 py-2 rounded-full text-sm font-medium text-white"
             >
-              <Zap className="w-3.5 h-3.5" /> Upgrade Pro
+              Explore Pro
             </button>
           )}
 
-          {/* Mobile menu button */}
+          {/* Mobile menu */}
           <button
             onClick={() => setOpen((o) => !o)}
             aria-label="Menu"
-            className="lg:hidden w-9 h-9 rounded-xl grid place-items-center text-slate-400 hover:text-white hover:bg-white/5 transition"
+            className="lg:hidden text-white/50 hover:text-white transition"
           >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -176,16 +167,25 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-white/5 bg-slate-950/95 backdrop-blur-xl">
-          <div className="container-site py-4 flex flex-col gap-1">
+        <div
+          className="lg:hidden"
+          style={{
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+            background: 'rgba(0,26,46,0.95)',
+            WebkitBackdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(20px)',
+          }}
+        >
+          <div className="container-site py-5 flex flex-col gap-1">
             <form onSubmit={onSearch} className="relative mb-3">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
               <input
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 type="search"
                 placeholder="Search tools…"
-                className="w-full pl-9 pr-4 py-2.5 rounded-xl text-sm bg-white/5 border border-white/10 text-slate-300 placeholder-slate-500 outline-none focus:border-brand-500/50"
+                className="w-full pl-9 pr-4 py-2.5 rounded-full text-sm text-white/80 placeholder-white/25 outline-none"
+                style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
               />
             </form>
 
@@ -193,10 +193,9 @@ export default function Navbar() {
               <NavLink
                 key={n.to}
                 to={n.to}
-                end={n.to === '/'}
                 className={({ isActive }) =>
-                  `px-4 py-3 rounded-xl text-sm font-medium
-                   ${isActive ? 'bg-white/10 text-white' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`
+                  `px-4 py-3 rounded-xl text-sm transition
+                   ${isActive ? 'text-white bg-white/8' : 'text-white/50 hover:text-white hover:bg-white/5'}`
                 }
               >
                 {n.label}
@@ -205,29 +204,25 @@ export default function Navbar() {
 
             <button
               onClick={() => scrollToSection('pricing')}
-              className="text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white transition"
+              className="text-left px-4 py-3 rounded-xl text-sm text-white/50 hover:text-white hover:bg-white/5 transition"
             >
               Pricing
             </button>
-            <button
-              onClick={() => scrollToSection('faq')}
-              className="text-left px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white transition"
-            >
-              FAQ
-            </button>
 
-            <div className="mt-2 pt-3 border-t border-white/5 flex gap-2">
+            <div className="mt-3 pt-3 flex gap-2" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
               {user ? (
                 <button
                   onClick={logOut}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition"
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm text-white/50 hover:text-white transition"
+                  style={{ border: '1px solid rgba(255,255,255,0.1)' }}
                 >
                   <LogOut className="w-3.5 h-3.5" /> Sign out ({user.displayName?.split(' ')[0]})
                 </button>
               ) : (
                 <button
                   onClick={signIn}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-medium text-slate-400 border border-white/10 hover:border-white/20 hover:text-white transition"
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm text-white/50 hover:text-white transition"
+                  style={{ border: '1px solid rgba(255,255,255,0.1)' }}
                 >
                   <LogIn className="w-3.5 h-3.5" /> Login with Google
                 </button>
@@ -235,9 +230,9 @@ export default function Navbar() {
               {!isPro && (
                 <button
                   onClick={() => scrollToSection('pricing')}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-brand-600 to-violet-600"
+                  className="liquid-glass flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium text-white"
                 >
-                  <Zap className="w-3.5 h-3.5" /> Upgrade Pro
+                  Explore Pro
                 </button>
               )}
             </div>

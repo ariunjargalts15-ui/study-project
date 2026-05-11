@@ -31,7 +31,8 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['"Plus Jakarta Sans"', 'Inter', 'ui-sans-serif', 'system-ui'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+        display: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
       boxShadow: {
         soft: '0 4px 24px -6px rgba(30, 27, 75, 0.10), 0 2px 6px -2px rgba(30, 27, 75, 0.06)',

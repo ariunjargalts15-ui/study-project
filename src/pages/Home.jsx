@@ -1,10 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  Sparkles, ArrowRight, Zap, ChevronDown, ChevronUp, Check,
-  Lock, Star, Wand2, BookOpen, Briefcase, Globe, Palette, GraduationCap,
-  FileText, Timer, Shield
-} from 'lucide-react'
+import { ArrowRight, Zap, ChevronDown, ChevronUp, Check, Lock, Star } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import AdSlot from '../components/AdSlot.jsx'
 import PremiumModal from '../components/PremiumModal.jsx'
@@ -12,17 +8,7 @@ import PaymentModal from '../components/PaymentModal.jsx'
 import { premiumTools } from '../data/premiumTools.js'
 import { usePro } from '../context/ProContext.jsx'
 
-/* ─── Tool categories ─────────────────────────────────────────── */
-const toolCategories = [
-  { slug: 'free',    label: 'Free Tools',     emoji: '🆓', color: 'from-emerald-500 to-teal-600',    desc: '8 tools, no signup' },
-  { slug: 'study',   label: 'Study Tools',    emoji: '📚', color: 'from-indigo-500 to-violet-600',   desc: 'Study smarter' },
-  { slug: 'business',label: 'Business Tools', emoji: '💼', color: 'from-sky-500 to-blue-600',        desc: 'Grow your business' },
-  { slug: 'career',  label: 'Career Tools',   emoji: '🎯', color: 'from-rose-500 to-pink-600',       desc: 'Land your next job' },
-  { slug: 'website', label: 'Website Tools',  emoji: '🌐', color: 'from-amber-500 to-orange-600',    desc: 'Optimize your site' },
-  { slug: 'creator', label: 'Creator Tools',  emoji: '✨', color: 'from-purple-500 to-fuchsia-600',  desc: 'Create content fast' },
-]
-
-/* ─── Free tools showcase ─────────────────────────────────────── */
+/* ─── Free tools showcase ──────────────────────────────────────── */
 const freeToolsShowcase = [
   { id: 'prompt',   label: 'Prompt Generator',   emoji: '🧠', color: 'from-violet-500 to-purple-600' },
   { id: 'name',     label: 'Business Names',      emoji: '🏷️', color: 'from-pink-500 to-rose-600' },
@@ -34,65 +20,33 @@ const freeToolsShowcase = [
   { id: 'color',    label: 'Color Palette',       emoji: '🎨', color: 'from-cyan-500 to-sky-600' },
 ]
 
-/* ─── FAQ data ────────────────────────────────────────────────── */
+/* ─── FAQ ──────────────────────────────────────────────────────── */
 const faqs = [
-  {
-    q: 'What is StudyAI Tools?',
-    a: 'StudyAI Tools is a premium AI utility platform with free and pro tools for students, business owners, creators, and website builders. Use tools like the Study Planner, Prompt Generator, AI Resume Builder, SEO Checker, and more — all in one place.',
-  },
-  {
-    q: 'Are the free tools really free?',
-    a: 'Yes! All 8 basic tools are 100% free with no account required. Word Counter, Pomodoro Timer, Password Checker, Color Palette, Prompt Generator, Business Name Generator, Study Planner, and Income Calculator — always free.',
-  },
-  {
-    q: "What's included in Pro?",
-    a: 'Pro unlocks 11 premium tools: AI Resume Builder, Cover Letter Generator, Business Email Writer, Product Description Generator, Essay Checker, SEO Website Checker, AdSense Approval Checker, Meta Tag Generator, Invoice Generator, Import Profit Calculator, and Flashcard Generator.',
-  },
-  {
-    q: 'How does the payment work?',
-    a: 'The All Tools Lifetime plan is a one-time payment of $19.99 — no monthly fees, no subscriptions. You pay once and keep access forever. Single Tool access is $3.99 per tool.',
-  },
-  {
-    q: 'Is my data private?',
-    a: 'Yes. All free tools run entirely in your browser. No data is ever sent to our servers for free tools. Premium tools operate securely and we never sell or share your data.',
-  },
-  {
-    q: 'Can I get a refund?',
-    a: 'Yes. We offer a 7-day money-back guarantee. If you\'re not satisfied, contact us at support@studyaitools.biz within 7 days of purchase for a full refund.',
-  },
+  { q: 'What is StudyAI Tools?', a: 'StudyAI Tools is a curated AI utility platform with free and premium tools for students, creators, and independent builders. Use tools like Study Planner, AI Resume Builder, SEO Checker, and more — all in one place.' },
+  { q: 'Are the free tools really free?', a: 'Yes — all 8 basic tools are 100% free with no account required. Word Counter, Pomodoro Timer, Password Checker, Color Palette, Prompt Generator, Business Name Generator, Study Planner, and Income Calculator are always free.' },
+  { q: "What's included in Pro?", a: 'Pro unlocks 11 premium tools: AI Resume Builder, Cover Letter Generator, Business Email Writer, Product Description Generator, Essay Checker, SEO Website Checker, AdSense Approval Checker, Meta Tag Generator, Invoice Generator, Import Profit Calculator, and Flashcard Generator.' },
+  { q: 'How does payment work?', a: 'The All Tools Lifetime plan is a one-time payment of $19.99 — no monthly fees, no subscriptions. You pay once and keep access forever. Single Tool access is $3.99 per tool.' },
+  { q: 'Is my data private?', a: 'Yes. All free tools run entirely in your browser. No data is ever sent to our servers for free tools. Premium tools operate securely and we never sell or share your data.' },
+  { q: 'Can I get a refund?', a: "Yes — we offer a 7-day money-back guarantee. If you're not satisfied, contact us at support@studyaitools.biz within 7 days of purchase for a full refund." },
 ]
 
-/* ─── Dashboard preview tools ─────────────────────────────────── */
-const previewTools = [
-  { emoji: '🧠', label: 'Prompt Gen', pro: false },
-  { emoji: '📄', label: 'Resume AI', pro: true },
-  { emoji: '⏱️', label: 'Pomodoro', pro: false },
-  { emoji: '✉️', label: 'Email Writer', pro: true },
-  { emoji: '📝', label: 'Word Counter', pro: false },
-  { emoji: '🔍', label: 'SEO Checker', pro: true },
-  { emoji: '🎨', label: 'Color Palette', pro: false },
-  { emoji: '🧾', label: 'Invoice Gen', pro: true },
-]
-
-/* ─── FAQ Accordion ───────────────────────────────────────────── */
+/* ─── FAQ Accordion ────────────────────────────────────────────── */
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="border border-white/8 rounded-2xl overflow-hidden glass-card">
+    <div style={{ border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, overflow: 'hidden', background: 'rgba(8,22,38,0.5)' }}>
       <button
         onClick={() => setOpen((o) => !o)}
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left group"
       >
-        <span className="font-semibold text-white text-sm md:text-base group-hover:text-brand-300 transition-colors">
-          {q}
-        </span>
+        <span className="font-serif text-white text-base" style={{ letterSpacing: '-0.01em' }}>{q}</span>
         {open
-          ? <ChevronUp className="w-5 h-5 text-brand-400 flex-shrink-0" />
-          : <ChevronDown className="w-5 h-5 text-slate-500 flex-shrink-0 group-hover:text-slate-300 transition-colors" />
+          ? <ChevronUp className="w-4 h-4 text-white/40 flex-shrink-0" />
+          : <ChevronDown className="w-4 h-4 text-white/30 flex-shrink-0" />
         }
       </button>
       {open && (
-        <div className="px-6 pb-5 text-sm text-slate-400 leading-relaxed border-t border-white/5 pt-4">
+        <div className="px-6 pb-5 text-sm leading-relaxed" style={{ color: 'var(--muted)', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 16 }}>
           {a}
         </div>
       )}
@@ -100,46 +54,43 @@ function FaqItem({ q, a }) {
   )
 }
 
-/* ─── Premium Tool Card ───────────────────────────────────────── */
+/* ─── Premium Tool Card ─────────────────────────────────────────── */
 function PremiumCard({ tool, isPro, onOpenModal }) {
   return (
     <div
-      className={`relative group rounded-2xl overflow-hidden border transition-all duration-300 cursor-pointer
-        ${isPro
-          ? 'border-white/10 hover:border-brand-500/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-brand-900/30'
-          : 'border-white/8 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40'}`}
+      className="relative group rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1"
+      style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(8,22,38,0.7)' }}
       onClick={() => !isPro && onOpenModal(tool)}
     >
-      {/* Gradient top */}
-      <div className={`h-20 bg-gradient-to-br ${tool.color} relative`}>
-        <div className="absolute inset-0 grid place-items-center text-3xl">{tool.emoji}</div>
+      <div className={`h-20 bg-gradient-to-br ${tool.color} relative flex items-center justify-center`}>
+        <span className="text-3xl drop-shadow">{tool.emoji}</span>
         {!isPro && (
-          <div className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/40 grid place-items-center">
-            <Lock className="w-3.5 h-3.5 text-white" />
+          <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-black/40 grid place-items-center">
+            <Lock className="w-3 h-3 text-white" />
           </div>
         )}
-        <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/30 backdrop-blur text-white text-[10px] font-bold">
+        <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-black/30 text-white text-[10px] font-medium tracking-wide">
           PRO
         </div>
       </div>
-      {/* Body */}
-      <div className="p-4 bg-slate-900/80">
-        <h3 className="font-semibold text-white text-sm leading-snug">{tool.name}</h3>
-        <p className="mt-1 text-xs text-slate-500 line-clamp-2">{tool.tagline}</p>
+      <div className="p-4">
+        <h3 className="font-serif text-white text-sm leading-snug" style={{ letterSpacing: '-0.01em' }}>{tool.name}</h3>
+        <p className="mt-1 text-xs" style={{ color: 'var(--muted)' }}>{tool.tagline}</p>
         {isPro ? (
           <span className="mt-3 inline-flex items-center gap-1 text-xs text-emerald-400 font-medium">
             <Check className="w-3 h-3" /> Unlocked
           </span>
         ) : (
-          <span className="mt-3 inline-flex items-center gap-1 text-xs text-slate-500">
+          <span className="mt-3 inline-flex items-center gap-1 text-xs" style={{ color: 'rgba(255,255,255,0.25)' }}>
             <Lock className="w-3 h-3" /> Unlock with Pro
           </span>
         )}
       </div>
-      {/* Locked overlay for non-pro */}
       {!isPro && (
-        <div className="absolute inset-0 bg-slate-950/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-          <div className="px-3 py-1.5 rounded-xl bg-brand-600 text-white text-xs font-semibold shadow-lg">
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+          style={{ background: 'rgba(0,26,46,0.6)' }}>
+          <div className="px-3 py-1.5 rounded-xl text-white text-xs font-medium"
+            style={{ background: 'rgba(99,102,241,0.9)' }}>
             View Pro Plan →
           </div>
         </div>
@@ -148,65 +99,63 @@ function PremiumCard({ tool, isPro, onOpenModal }) {
   )
 }
 
-/* ─── Pricing Card ────────────────────────────────────────────── */
+/* ─── Pricing Card ──────────────────────────────────────────────── */
 function PricingCard({ plan, featured, isPro, onPay }) {
   const alreadyPro = isPro && plan.planKey
-
   return (
     <div
-      className={`relative rounded-3xl overflow-hidden transition-all
-        ${featured
-          ? 'border-2 border-brand-500/60 shadow-2xl shadow-brand-900/40 scale-[1.02]'
-          : 'border border-white/10 hover:border-white/20'}`}
+      className="relative rounded-3xl overflow-hidden transition-all"
+      style={{
+        border: featured ? '1px solid rgba(99,102,241,0.5)' : '1px solid rgba(255,255,255,0.08)',
+        background: featured ? 'rgba(8,22,38,0.9)' : 'rgba(8,22,38,0.6)',
+        transform: featured ? 'scale(1.02)' : 'none',
+      }}
     >
       {featured && (
-        <div className="absolute inset-0 bg-gradient-to-b from-brand-900/30 to-transparent pointer-events-none" />
-      )}
-      {featured && (
         <div className="absolute -top-px left-1/2 -translate-x-1/2">
-          <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-b-xl bg-gradient-to-r from-brand-600 to-violet-600 text-white text-xs font-bold shadow-lg">
+          <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-b-xl bg-gradient-to-r from-brand-600 to-violet-600 text-white text-xs font-bold">
             <Star className="w-3 h-3 fill-current" /> Most Popular
           </div>
         </div>
       )}
-      <div className={`p-7 ${featured ? 'bg-slate-900' : 'bg-slate-900/60 glass-card'}`}>
+      <div className="p-7 pt-10">
         <div className="mb-6">
-          <div className="text-sm font-medium text-slate-400 mb-1">{plan.name}</div>
+          <div className="text-sm font-medium mb-1" style={{ color: 'var(--muted)' }}>{plan.name}</div>
           <div className="flex items-end gap-1">
-            <span className="text-4xl font-display font-extrabold text-white">{plan.price}</span>
-            {plan.period && <span className="text-slate-400 text-sm mb-1.5">{plan.period}</span>}
+            <span className="font-serif text-4xl text-white" style={{ letterSpacing: '-0.03em' }}>{plan.price}</span>
+            {plan.period && <span className="text-sm mb-1.5" style={{ color: 'var(--muted)' }}>{plan.period}</span>}
           </div>
-          <p className="mt-2 text-sm text-slate-400">{plan.desc}</p>
+          <p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>{plan.desc}</p>
         </div>
 
         <ul className="space-y-3 mb-7">
           {plan.features.map((f, i) => (
             <li key={i} className="flex items-start gap-2.5 text-sm">
-              <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${featured ? 'text-brand-400' : 'text-slate-400'}`} />
-              <span className="text-slate-300">{f}</span>
+              <Check className="w-4 h-4 flex-shrink-0 mt-0.5 text-white/40" />
+              <span className="text-white/80">{f}</span>
             </li>
           ))}
           {plan.missing?.map((f, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-sm opacity-40">
+            <li key={i} className="flex items-start gap-2.5 text-sm opacity-30">
               <span className="w-4 h-4 flex-shrink-0 mt-0.5 text-center leading-4">✕</span>
-              <span className="text-slate-500">{f}</span>
+              <span style={{ color: 'var(--muted)' }}>{f}</span>
             </li>
           ))}
         </ul>
 
-        {/* CTA */}
         {plan.planKey ? (
           alreadyPro ? (
-            <div className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl text-sm font-semibold text-emerald-400 border border-emerald-700/30 bg-emerald-900/20">
+            <div className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl text-sm font-semibold text-emerald-400"
+              style={{ border: '1px solid rgba(52,211,153,0.2)', background: 'rgba(52,211,153,0.08)' }}>
               <Check className="w-4 h-4" /> Already unlocked
             </div>
           ) : (
             <button
               onClick={() => onPay(plan.planKey)}
-              className={`w-full py-3 rounded-2xl text-sm font-semibold transition-all
-                ${featured
-                  ? 'bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white shadow-lg shadow-brand-900/50'
-                  : 'bg-white/8 hover:bg-white/12 text-white border border-white/10 hover:border-white/20'}`}
+              className="w-full py-3 rounded-2xl text-sm font-semibold transition-all text-white"
+              style={featured
+                ? { background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', boxShadow: '0 8px 32px rgba(99,102,241,0.3)' }
+                : { background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
             >
               {plan.cta}
             </button>
@@ -214,7 +163,8 @@ function PricingCard({ plan, featured, isPro, onPay }) {
         ) : (
           <a
             href={plan.ctaHref}
-            className="block w-full py-3 rounded-2xl text-sm font-semibold text-center bg-white/8 hover:bg-white/12 text-white border border-white/10 hover:border-white/20 transition-all"
+            className="block w-full py-3 rounded-2xl text-sm font-semibold text-center text-white transition-all"
+            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}
           >
             {plan.cta}
           </a>
@@ -224,431 +174,425 @@ function PricingCard({ plan, featured, isPro, onPay }) {
   )
 }
 
-/* ─── Main Component ──────────────────────────────────────────── */
+/* ─── Main ──────────────────────────────────────────────────────── */
 export default function Home() {
   const [modalTool, setModalTool]     = useState(null)
-  const [paymentPlan, setPaymentPlan] = useState(null) // 'lifetime' | 'single'
+  const [paymentPlan, setPaymentPlan] = useState(null)
   const { isPro } = usePro()
 
   const plans = [
     {
-      name: 'Free Plan',
-      price: '$0',
-      period: '/forever',
+      name: 'Free Plan', price: '$0', period: '/forever',
       desc: 'All basic tools, no signup needed.',
-      planKey: null,
-      cta: 'Get Started Free',
-      ctaHref: '/free-tools',
-      features: [
-        'All 8 basic tools',
-        'Prompt Generator',
-        'Word Counter & Pomodoro',
-        'Color Palette & Password Checker',
-        'No account required',
-      ],
+      planKey: null, cta: 'Get Started Free', ctaHref: '/free-tools',
+      features: ['All 8 basic tools', 'Prompt Generator', 'Word Counter & Pomodoro', 'Color Palette & Password Checker', 'No account required'],
       missing: ['Premium tools', 'Ad-free experience'],
     },
     {
-      name: 'All Tools Lifetime',
-      price: '$19.99',
-      period: 'one-time',
+      name: 'All Tools Lifetime', price: '$19.99', period: 'one-time',
       desc: 'Every tool, forever. Best value.',
-      planKey: 'lifetime',
-      cta: 'Unlock Everything →',
-      features: [
-        'All 8 free tools included',
-        'AI Resume Builder',
-        'Cover Letter Generator',
-        'Business Email Writer',
-        'SEO Website Checker',
-        'Essay Checker & 6 more tools',
-        'Lifetime access — no renewals',
-        'Priority support',
-      ],
+      planKey: 'lifetime', cta: 'Unlock Everything →',
+      features: ['All 8 free tools included', 'AI Resume Builder', 'Cover Letter Generator', 'Business Email Writer', 'SEO Website Checker', 'Essay Checker & 6 more tools', 'Lifetime access — no renewals', 'Priority support'],
     },
     {
-      name: 'Single Pro Tool',
-      price: '$3.99',
-      period: '/tool',
+      name: 'Single Pro Tool', price: '$3.99', period: '/tool',
       desc: 'Try any one premium tool.',
-      planKey: 'single',
-      cta: 'Choose a Tool',
-      features: [
-        'Unlock any ONE premium tool',
-        'Lifetime access to that tool',
-        'Priority support',
-      ],
+      planKey: 'single', cta: 'Choose a Tool',
+      features: ['Unlock any ONE premium tool', 'Lifetime access to that tool', 'Priority support'],
       missing: ['Other premium tools locked'],
     },
   ]
 
+  /* Background overlay styles */
+  const bgOverlay = {
+    position: 'absolute',
+    inset: 0,
+    background: 'linear-gradient(180deg, rgba(0,15,30,0.55) 0%, rgba(0,15,30,0.15) 35%, rgba(0,15,30,0.55) 70%, hsl(201deg 100% 8%) 100%)',
+    zIndex: 1,
+  }
+  const bgRadial = {
+    position: 'absolute',
+    inset: 0,
+    background: 'radial-gradient(120% 60% at 20% 30%, rgba(0,15,30,0.25) 0%, transparent 50%), radial-gradient(80% 50% at 80% 70%, rgba(0,0,0,0.35) 0%, transparent 60%)',
+    zIndex: 2,
+    pointerEvents: 'none',
+  }
+
   return (
     <>
       <SEO
-        title="StudyAI Tools — One place for smart AI tools"
-        description="Create resumes, study plans, business emails, SEO reports, prompts, and more in seconds. Free and premium AI tools for work, study, and business."
+        title="StudyAI Tools — Where focus meets intelligence"
+        description="A curated platform of AI tools for students, creators, and independent builders. Free tools and pro upgrades for serious work."
         url="/"
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'StudyAI Tools',
-          url: 'https://studyaitools.biz',
-          description: 'Premium AI tools platform for students, business owners, and creators.',
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: 'https://studyaitools.biz/tools?q={search_term_string}',
-            'query-input': 'required name=search_term_string',
-          },
+      />
+
+      {/* Modals */}
+      {modalTool && <PremiumModal tool={modalTool} onClose={() => setModalTool(null)} onUpgrade={setPaymentPlan} />}
+      {paymentPlan && <PaymentModal planKey={paymentPlan} onClose={() => setPaymentPlan(null)} />}
+
+      {/* ═══ FIXED BACKGROUND (Home only) ═══ */}
+      <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        <img
+          src="/hero-bg.png"
+          alt=""
+          style={{
+            position: 'absolute', inset: 0, width: '100%', height: '100%',
+            objectFit: 'cover', objectPosition: 'center 30%',
+            animation: 'kenburns 28s ease-in-out infinite alternate',
+          }}
+        />
+        <div style={bgOverlay} />
+        <div style={bgRadial} />
+      </div>
+
+      {/* Film grain */}
+      <div
+        style={{
+          position: 'fixed', inset: 0, zIndex: 3, opacity: 0.06,
+          mixBlendMode: 'overlay', pointerEvents: 'none',
+          backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/></svg>")`,
         }}
       />
 
-      {/* Premium feature modal */}
-      {modalTool && (
-        <PremiumModal tool={modalTool} onClose={() => setModalTool(null)} onUpgrade={setPaymentPlan} />
-      )}
+      {/* ═══ PAGE CONTENT ═══ */}
+      <div style={{ position: 'relative', zIndex: 10 }}>
 
-      {/* PayPal payment modal */}
-      {paymentPlan && (
-        <PaymentModal planKey={paymentPlan} onClose={() => setPaymentPlan(null)} />
-      )}
+        {/* Top meta strip */}
+        <div className="animate-fade-rise" style={{ maxWidth: 1280, margin: '0 auto', padding: '16px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'rgba(255,255,255,0.3)', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', gap: 16 }}>
+          <span>StudyAI Tools</span>
+          <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)', minWidth: 40, margin: '0 24px' }} />
+          <span>35+ curated tools</span>
+        </div>
 
-      {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative overflow-hidden hero-premium">
-        {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute top-20 right-1/4 w-80 h-80 bg-violet-600/15 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
-        <div className="absolute bottom-0 left-1/2 w-64 h-64 bg-cyan-600/10 rounded-full blur-3xl" />
+        {/* ═══ HERO ═══ */}
+        <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '80px 24px 120px', maxWidth: 1280, margin: '0 auto', width: '100%' }}>
 
-        <div className="container-site relative pt-20 pb-16 md:pt-28 md:pb-24 text-center">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-500/30 bg-brand-900/30 text-brand-300 text-xs font-medium mb-8 backdrop-blur">
-            <Sparkles className="w-3.5 h-3.5" />
-            8 free tools + 11 premium tools · no signup needed
+          {/* Eyebrow */}
+          <div className="liquid-glass animate-fade-rise-delay" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '7px 16px 7px 12px', borderRadius: 999, fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)', marginBottom: 36 }}>
+            <span style={{ width: 6, height: 6, borderRadius: 999, background: '#7be0a4', boxShadow: '0 0 8px rgba(123,224,164,0.7)', flexShrink: 0 }} />
+            35+ AI tools, verified free tiers
           </div>
 
-          {/* Headline */}
-          <h1 className="font-display font-extrabold text-5xl sm:text-6xl md:text-7xl tracking-tight text-white leading-[1.05]">
-            One place for<br />
-            <span className="gradient-text">smart AI tools</span>
+          {/* Hero title */}
+          <h1
+            className="animate-fade-rise"
+            style={{
+              fontFamily: '"Instrument Serif", Georgia, serif',
+              fontWeight: 400,
+              fontSize: 'clamp(52px, 9vw, 120px)',
+              lineHeight: 0.95,
+              letterSpacing: '-0.035em',
+              maxWidth: 1100,
+              color: 'rgba(234, 227, 255, 1)',
+              textWrap: 'balance',
+            }}
+          >
+            Think Beyond <em style={{ fontStyle: 'normal', color: 'rgba(255,255,255,0.35)' }}>Tomorrow</em>
           </h1>
 
-          {/* Subheadline */}
-          <p className="mt-6 max-w-2xl mx-auto text-lg text-slate-400 leading-relaxed">
-            Create resumes, study plans, business emails, SEO reports, prompts, and more in seconds.
-            Free tools for everyone. Pro tools for those who want more.
+          {/* Subtitle */}
+          <p className="animate-fade-rise-delay" style={{ color: 'var(--muted)', fontSize: 18, maxWidth: 580, marginTop: 32, lineHeight: 1.55, fontWeight: 400 }}>
+            A curated space for AI tools that actually work. No noise — just sharp tools
+            for students, creators, and independent builders.
           </p>
 
-          {/* CTAs */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              to="/free-tools"
-              className="flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-base transition-all shadow-xl shadow-brand-900/50 hover:shadow-brand-700/50 hover:-translate-y-0.5"
-            >
-              <Zap className="w-5 h-5" /> Start Free
-            </Link>
-            <button
-              onClick={() => document.getElementById('premium-tools')?.scrollIntoView({ behavior: 'smooth' })}
-              className="flex items-center gap-2 px-7 py-3.5 rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-semibold text-base transition-all backdrop-blur hover:-translate-y-0.5"
-            >
-              View Premium Tools <ArrowRight className="w-5 h-5" />
-            </button>
-          </div>
+          {/* CTA */}
+          <a
+            href="/free-tools"
+            className="liquid-glass animate-fade-rise-delay-2"
+            style={{ marginTop: 48, display: 'inline-flex', alignItems: 'center', gap: 12, padding: '18px 52px', borderRadius: 999, fontSize: 15, color: '#fff', textDecoration: 'none' }}
+          >
+            Begin your study
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" style={{ transition: 'transform 0.3s ease' }}>
+              <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+            </svg>
+          </a>
 
-          {/* Stats bar */}
-          <div className="mt-14 grid grid-cols-3 gap-4 max-w-lg mx-auto">
+          {/* Trust strip */}
+          <div
+            className="animate-fade-rise-delay-3"
+            style={{
+              marginTop: 72, maxWidth: 960, width: 'calc(100% - 48px)',
+              display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: 1, borderRadius: 999,
+              background: 'rgba(255,255,255,0.06)', overflow: 'hidden',
+            }}
+          >
             {[
-              { n: '8+', l: 'Free Tools' },
-              { n: '11+', l: 'Premium Tools' },
-              { n: '200k+', l: 'Monthly Users' },
+              { n: '8+',   l: 'Free Tools' },
+              { n: '11+',  l: 'Premium Tools' },
+              { n: '200k', l: 'Monthly Users' },
+              { n: '100%', l: 'Browser-based' },
             ].map((s) => (
-              <div key={s.l} className="py-4 px-3 rounded-2xl glass-card border border-white/8 text-center">
-                <div className="font-display font-extrabold text-2xl text-white">{s.n}</div>
-                <div className="text-xs text-slate-500 mt-0.5">{s.l}</div>
+              <div key={s.l} style={{ background: 'rgba(8,22,38,0.55)', WebkitBackdropFilter: 'blur(8px)', backdropFilter: 'blur(8px)', padding: '18px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+                <div style={{ fontFamily: '"Instrument Serif", Georgia, serif', fontSize: 26, lineHeight: 1, letterSpacing: '-0.02em', color: '#fff' }}>{s.n}</div>
+                <div style={{ fontSize: 11, color: 'var(--muted)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>{s.l}</div>
               </div>
             ))}
           </div>
+        </section>
 
-          {/* Dashboard preview */}
-          <div className="relative max-w-4xl mx-auto mt-16">
-            <div className="absolute -inset-4 bg-brand-600/10 blur-3xl rounded-3xl" />
-            <div className="relative rounded-2xl border border-white/10 bg-slate-900/80 backdrop-blur-xl overflow-hidden shadow-2xl shadow-black/60">
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 bg-slate-800/80 border-b border-white/8">
-                <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <span className="w-3 h-3 rounded-full bg-green-500/80" />
-                <div className="flex-1 mx-4 h-6 rounded-full bg-slate-700/80 flex items-center px-3 gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-slate-500/60" />
-                  <span className="text-xs text-slate-400">studyaitools.biz/tools</span>
-                </div>
-              </div>
-              {/* Content */}
-              <div className="p-5">
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {previewTools.map((t, i) => (
-                    <div
-                      key={i}
-                      className={`rounded-xl p-3.5 flex flex-col gap-2 border transition
-                        ${t.pro
-                          ? 'bg-gradient-to-br from-brand-900/40 to-violet-900/30 border-brand-700/30'
-                          : 'bg-slate-800/80 border-white/8'}`}
-                    >
-                      <div className="text-2xl">{t.emoji}</div>
-                      <div className="text-xs font-medium text-slate-300 leading-tight">{t.label}</div>
-                      {t.pro
-                        ? <span className="text-[10px] font-bold text-brand-400 flex items-center gap-1"><Lock className="w-2.5 h-2.5" /> PRO</span>
-                        : <span className="text-[10px] text-emerald-400 flex items-center gap-1"><Check className="w-2.5 h-2.5" /> FREE</span>
-                      }
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ TOP BANNER AD ═══════════════ */}
-      {/*
-        ====================================================================
-        GOOGLE ADSENSE — TOP BANNER
-        Replace the AdSlot component with your live <ins> tag once approved.
-        Your publisher ID (ca-pub-7554165066835044) is already in index.html.
-        Paste your ad unit slot code here:
-        ====================================================================
-      */}
-      <div className="container-site mt-8">
-        <AdSlot variant="banner" />
-      </div>
-
-      {/* ═══════════════ CATEGORIES ═══════════════ */}
-      <section className="container-site mt-20">
-        <div className="text-center mb-10">
-          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-white">
-            Tools for every goal
-          </h2>
-          <p className="mt-3 text-slate-400">Pick a category and start building, studying, or growing.</p>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {toolCategories.map((c) => (
-            <Link
-              key={c.slug}
-              to="/free-tools"
-              className={`group relative overflow-hidden rounded-2xl p-5 bg-gradient-to-br ${c.color} border border-white/10 hover:-translate-y-1.5 hover:shadow-xl transition-all duration-300`}
-            >
-              <div className="absolute -right-4 -bottom-4 w-16 h-16 bg-white/10 rounded-full blur-xl" />
-              <div className="text-2xl mb-3">{c.emoji}</div>
-              <div className="font-display font-bold text-sm text-white leading-tight">{c.label}</div>
-              <div className="text-white/60 text-xs mt-1">{c.desc}</div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══════════════ FREE TOOLS ═══════════════ */}
-      <section className="container-site mt-24">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-900/30 border border-emerald-700/30 text-emerald-400 text-xs font-medium mb-3">
-              <Check className="w-3.5 h-3.5" /> 100% Free · No Signup
-            </div>
-            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-white">
-              Free tools you can use right now
-            </h2>
-            <p className="mt-2 text-slate-400">Eight free browser tools. No account. No credit card. Just use them.</p>
-          </div>
-          <Link
-            to="/free-tools"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/8 text-white text-sm font-medium transition whitespace-nowrap"
+        {/* ═══ ABOUT ═══ */}
+        <section id="about" style={{ padding: '0 24px 100px' }}>
+          <div
+            className="animate-fade-rise-delay-4"
+            style={{
+              maxWidth: 1180, margin: '0 auto', borderRadius: 28,
+              padding: 'clamp(40px, 6vw, 80px) clamp(24px, 6vw, 64px)',
+              background: 'linear-gradient(180deg, rgba(8,22,38,0.55) 0%, rgba(4,12,22,0.78) 100%)',
+              WebkitBackdropFilter: 'blur(18px) saturate(130%)',
+              backdropFilter: 'blur(18px) saturate(130%)',
+              boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 80px rgba(0,0,0,0.4)',
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}
           >
-            Open All Tools <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {freeToolsShowcase.map((t) => (
-            <Link
-              key={t.id}
-              to="/free-tools"
-              className="group relative rounded-2xl overflow-hidden border border-white/8 hover:border-white/20 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40 transition-all duration-300"
-            >
-              <div className={`h-24 bg-gradient-to-br ${t.color} flex items-center justify-center`}>
-                <span className="text-4xl drop-shadow">{t.emoji}</span>
-              </div>
-              <div className="p-4 bg-slate-900/80">
-                <div className="font-semibold text-sm text-white group-hover:text-brand-300 transition-colors">{t.label}</div>
-                <div className="text-xs text-emerald-400 mt-1 font-medium">Free →</div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══════════════ MIDDLE AD ═══════════════ */}
-      {/*
-        ====================================================================
-        GOOGLE ADSENSE — MID-CONTENT AD
-        Replace the AdSlot component below with your live <ins> ad unit.
-        ====================================================================
-      */}
-      <div className="container-site mt-16">
-        <AdSlot variant="in-article" />
-      </div>
-
-      {/* ═══════════════ PREMIUM TOOLS ═══════════════ */}
-      <section id="premium-tools" className="container-site mt-24">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-900/40 border border-brand-700/30 text-brand-300 text-xs font-medium mb-3">
-              <Lock className="w-3.5 h-3.5" /> Pro Exclusive
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 11, letterSpacing: '0.22em', textTransform: 'uppercase', color: 'var(--muted)', marginBottom: 28 }}>
+              <span style={{ width: 36, height: 1, background: 'rgba(255,255,255,0.35)' }} />
+              About — StudyAI Tools
             </div>
-            <h2 className="font-display font-extrabold text-3xl md:text-4xl text-white">
-              Premium tools — unlock more power
-            </h2>
-            <p className="mt-2 text-slate-400">11 advanced tools for serious work. Unlock once, use forever.</p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 56, alignItems: 'start', marginBottom: 48 }}>
+              <div>
+                <h2 style={{ fontFamily: '"Instrument Serif", Georgia, serif', fontWeight: 400, fontSize: 'clamp(32px, 4vw, 58px)', lineHeight: 1.0, letterSpacing: '-0.025em', color: '#fff', maxWidth: 420 }}>
+                  A quiet library for <em style={{ fontStyle: 'normal', color: 'var(--muted)' }}>loud minds.</em>
+                </h2>
+              </div>
+              <div>
+                <p style={{ color: '#fff', fontSize: 18, lineHeight: 1.55, marginBottom: 20, maxWidth: 520 }}>
+                  StudyAI Tools is a hand-picked collection of AI tools for students, writers, and independent thinkers — a calm room in a noisy internet.
+                </p>
+                <p style={{ color: 'var(--muted)', fontSize: 15, lineHeight: 1.7, maxWidth: 520 }}>
+                  We test every tool ourselves, confirm which free tiers are genuinely free — not a one-week trial dressed up in marketing — and build honest utilities that respect your time, attention, and budget.
+                </p>
+              </div>
+            </div>
+
+            {/* Principles */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 18, overflow: 'hidden' }}>
+              {[
+                { n: '01', t: 'Honest by default', d: 'Real reviews, real limits, real prices. We name the trade-offs before we name the wins.' },
+                { n: '02', t: 'Built for focus', d: 'The tools load fast and ask nothing of you. No doom-scroll, no dark patterns.' },
+                { n: '03', t: 'Made for learners', d: 'Students, self-taught builders, and quiet rebels. Tools that respect your budget.' },
+              ].map((p) => (
+                <div key={p.n} style={{ background: 'rgba(6,18,32,0.7)', padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  <span style={{ fontFamily: '"Instrument Serif", Georgia, serif', fontSize: 13, color: 'var(--muted)', letterSpacing: '0.1em' }}>{p.n}</span>
+                  <h3 style={{ fontFamily: '"Instrument Serif", Georgia, serif', fontWeight: 400, fontSize: 24, letterSpacing: '-0.02em', lineHeight: 1.1, color: '#fff' }}>{p.t}</h3>
+                  <p style={{ color: 'var(--muted)', fontSize: 14, lineHeight: 1.6 }}>{p.d}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <button
-            onClick={() => setPaymentPlan('lifetime')}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white text-sm font-semibold transition whitespace-nowrap shadow-lg shadow-brand-900/40"
-          >
-            <Zap className="w-4 h-4" /> Unlock All — $19.99
-          </button>
+        </section>
+
+        {/* ─── Everything below sits on the navy body background ─── */}
+
+        {/* ═══ TOP AD ═══ */}
+        <div className="container-site mt-4">
+          <AdSlot variant="banner" />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {premiumTools.map((tool) => (
-            <PremiumCard
-              key={tool.id}
-              tool={tool}
-              isPro={isPro}
-              onOpenModal={setModalTool}
-            />
-          ))}
+        {/* ═══ FREE TOOLS ═══ */}
+        <section id="free-tools" className="container-site mt-20">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-emerald-400 text-xs font-medium mb-3" style={{ background: 'rgba(52,211,153,0.08)', border: '1px solid rgba(52,211,153,0.2)' }}>
+                <Check className="w-3.5 h-3.5" /> 100% Free · No Signup
+              </div>
+              <h2 className="font-serif text-3xl md:text-4xl text-white" style={{ letterSpacing: '-0.025em', fontWeight: 400 }}>
+                Free tools you can use right now
+              </h2>
+              <p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>Eight browser tools. No account. No credit card. Just use them.</p>
+            </div>
+            <Link
+              to="/free-tools"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-medium transition whitespace-nowrap"
+              style={{ border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)' }}
+            >
+              Open All Tools <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {freeToolsShowcase.map((t) => (
+              <Link
+                key={t.id}
+                to="/free-tools"
+                className="group rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                style={{ border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <div className={`h-24 bg-gradient-to-br ${t.color} flex items-center justify-center`}>
+                  <span className="text-4xl drop-shadow">{t.emoji}</span>
+                </div>
+                <div className="p-4" style={{ background: 'rgba(8,22,38,0.8)' }}>
+                  <div className="font-serif text-sm text-white group-hover:text-white/80 transition-colors">{t.label}</div>
+                  <div className="text-xs text-emerald-400 mt-1">Free →</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══ MID AD ═══ */}
+        <div className="container-site mt-16">
+          <AdSlot variant="in-article" />
         </div>
 
-        {!isPro && (
-          <div className="mt-8 rounded-3xl border border-brand-700/30 bg-gradient-to-br from-brand-900/30 to-violet-900/20 p-8 text-center">
-            <div className="text-3xl mb-3">🔓</div>
-            <h3 className="font-display font-bold text-xl text-white mb-2">
-              Unlock all 11 premium tools for just $19.99
-            </h3>
-            <p className="text-slate-400 text-sm mb-5 max-w-md mx-auto">
-              One-time payment. Lifetime access. No subscriptions, no hidden fees.
-            </p>
+        {/* ═══ PREMIUM TOOLS ═══ */}
+        <section id="premium-tools" className="container-site mt-20">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-3" style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)', color: 'rgba(165,180,252,1)' }}>
+                <Lock className="w-3.5 h-3.5" /> Pro Exclusive
+              </div>
+              <h2 className="font-serif text-3xl md:text-4xl text-white" style={{ letterSpacing: '-0.025em', fontWeight: 400 }}>
+                Premium tools — unlock more power
+              </h2>
+              <p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>11 advanced tools. Unlock once, use forever.</p>
+            </div>
             <button
               onClick={() => setPaymentPlan('lifetime')}
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold transition-all shadow-lg shadow-brand-900/50"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-white text-sm font-semibold transition whitespace-nowrap"
+              style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', boxShadow: '0 4px 24px rgba(99,102,241,0.25)' }}
             >
-              <Zap className="w-5 h-5" /> Unlock Now — $19.99
+              <Zap className="w-4 h-4" /> Unlock All — $19.99
             </button>
           </div>
-        )}
-      </section>
 
-      {/* ═══════════════ PRICING ═══════════════ */}
-      <section id="pricing" className="container-site mt-28">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-slate-400 text-xs font-medium mb-4 backdrop-blur">
-            Simple, transparent pricing
-          </div>
-          <h2 className="font-display font-extrabold text-4xl md:text-5xl text-white">
-            Start free. Upgrade when ready.
-          </h2>
-          <p className="mt-4 text-slate-400 max-w-lg mx-auto">
-            No subscriptions. No tricks. Pay once for lifetime access to all premium tools.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-center">
-          <PricingCard plan={plans[0]} featured={false} isPro={isPro} onPay={setPaymentPlan} />
-          <PricingCard plan={plans[1]} featured={true}  isPro={isPro} onPay={setPaymentPlan} />
-          <PricingCard plan={plans[2]} featured={false} isPro={isPro} onPay={setPaymentPlan} />
-        </div>
-
-        <p className="text-center mt-8 text-xs text-slate-600">
-          7-day money-back guarantee · Secure payment · Instant access
-        </p>
-      </section>
-
-      {/* ═══════════════ WHY US ═══════════════ */}
-      <section className="container-site mt-24">
-        <div className="rounded-3xl border border-white/8 glass-card p-8 md:p-14">
-          <h2 className="font-display font-extrabold text-2xl md:text-3xl text-white text-center mb-10">
-            Why choose StudyAI Tools?
-          </h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {[
-              { e: '⚡', t: 'Instant results', d: 'All tools work in seconds. No waiting, no loading screens — just results.' },
-              { e: '🔒', t: 'Privacy-first', d: 'Free tools run 100% in your browser. Your data never leaves your device.' },
-              { e: '📱', t: 'Works everywhere', d: 'Fully responsive design. Use on desktop, tablet, or mobile seamlessly.' },
-              { e: '🚫', t: 'No signup required', d: 'All free tools work immediately — no account, no email, no friction.' },
-              { e: '💯', t: 'Always improving', d: 'We add new tools and improvements every month based on user feedback.' },
-              { e: '🎯', t: 'Built for results', d: 'Every tool is designed around real tasks — not just demos or showcases.' },
-            ].map((x, i) => (
-              <div key={i} className="flex items-start gap-4 p-4 rounded-2xl hover:bg-white/3 transition group">
-                <span className="text-2xl flex-shrink-0 group-hover:scale-110 transition-transform">{x.e}</span>
-                <div>
-                  <div className="font-semibold text-white text-sm mb-1">{x.t}</div>
-                  <div className="text-xs text-slate-500 leading-relaxed">{x.d}</div>
-                </div>
-              </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {premiumTools.map((tool) => (
+              <PremiumCard key={tool.id} tool={tool} isPro={isPro} onOpenModal={setModalTool} />
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* ═══════════════ FAQ ═══════════════ */}
-      <section id="faq" className="container-site mt-24">
-        <div className="text-center mb-10">
-          <h2 className="font-display font-extrabold text-3xl md:text-4xl text-white">
-            Frequently asked questions
-          </h2>
-          <p className="mt-3 text-slate-400">Everything you need to know about StudyAI Tools.</p>
-        </div>
-        <div className="max-w-3xl mx-auto space-y-3">
-          {faqs.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
-        </div>
-      </section>
-
-      {/* ═══════════════ BOTTOM CTA ═══════════════ */}
-      <section className="container-site mt-24">
-        <div className="relative overflow-hidden rounded-3xl border border-brand-700/30 p-10 md:p-16 text-center">
-          <div className="absolute inset-0 bg-gradient-to-br from-brand-900/40 via-violet-900/30 to-slate-900/60" />
-          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-brand-600/20 rounded-full blur-3xl" />
-          <div className="relative">
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl text-white mb-4">
-              Ready to work smarter?
-            </h2>
-            <p className="text-slate-300 max-w-md mx-auto mb-8 text-lg">
-              Join 200,000+ users who use StudyAI Tools every month.
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
-              <Link
-                to="/free-tools"
-                className="flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 text-white font-semibold text-base transition-all shadow-xl shadow-brand-900/50 hover:-translate-y-0.5"
-              >
-                <Zap className="w-5 h-5" /> Start Free Now
-              </Link>
+          {!isPro && (
+            <div className="mt-8 rounded-3xl p-8 text-center" style={{ border: '1px solid rgba(99,102,241,0.2)', background: 'rgba(8,22,38,0.6)' }}>
+              <div className="text-3xl mb-3">🔓</div>
+              <h3 className="font-serif text-xl text-white mb-2" style={{ letterSpacing: '-0.02em', fontWeight: 400 }}>
+                Unlock all 11 premium tools for just $19.99
+              </h3>
+              <p className="text-sm mb-5 max-w-md mx-auto" style={{ color: 'var(--muted)' }}>
+                One-time payment. Lifetime access. No subscriptions, no hidden fees.
+              </p>
               <button
-                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-                className="flex items-center gap-2 px-8 py-4 rounded-2xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-semibold text-base transition-all hover:-translate-y-0.5"
+                onClick={() => setPaymentPlan('lifetime')}
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl text-white font-semibold transition-all"
+                style={{ background: 'linear-gradient(135deg, #4f46e5, #7c3aed)', boxShadow: '0 8px 32px rgba(99,102,241,0.3)' }}
               >
-                View Pro Plans
+                <Zap className="w-5 h-5" /> Unlock Now — $19.99
               </button>
             </div>
-          </div>
-        </div>
-      </section>
+          )}
+        </section>
 
-      {/* ═══════════════ BOTTOM BANNER AD ═══════════════ */}
-      {/*
-        ====================================================================
-        GOOGLE ADSENSE — BOTTOM BANNER
-        Replace the AdSlot component with your live <ins> ad unit code.
-        ====================================================================
-      */}
-      <div className="container-site mt-16 mb-4">
-        <AdSlot variant="bottom" />
+        {/* ═══ PRICING ═══ */}
+        <section id="pricing" className="container-site mt-28">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium mb-4" style={{ border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', color: 'var(--muted)' }}>
+              Simple, transparent pricing
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl text-white" style={{ letterSpacing: '-0.03em', fontWeight: 400 }}>
+              Start free. Upgrade when ready.
+            </h2>
+            <p className="mt-4 max-w-lg mx-auto text-sm" style={{ color: 'var(--muted)' }}>
+              No subscriptions. No tricks. Pay once for lifetime access to all premium tools.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-center">
+            <PricingCard plan={plans[0]} featured={false} isPro={isPro} onPay={setPaymentPlan} />
+            <PricingCard plan={plans[1]} featured={true}  isPro={isPro} onPay={setPaymentPlan} />
+            <PricingCard plan={plans[2]} featured={false} isPro={isPro} onPay={setPaymentPlan} />
+          </div>
+
+          <p className="text-center mt-8 text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>
+            7-day money-back guarantee · Secure payment via PayPal · Instant access
+          </p>
+        </section>
+
+        {/* ═══ WHY US ═══ */}
+        <section className="container-site mt-24">
+          <div className="rounded-3xl p-8 md:p-14" style={{ border: '1px solid rgba(255,255,255,0.08)', background: 'rgba(8,22,38,0.6)' }}>
+            <h2 className="font-serif text-2xl md:text-3xl text-white text-center mb-10" style={{ letterSpacing: '-0.025em', fontWeight: 400 }}>
+              Why choose StudyAI Tools?
+            </h2>
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {[
+                { e: '⚡', t: 'Instant results', d: 'All tools work in seconds. No waiting, no loading screens — just results.' },
+                { e: '🔒', t: 'Privacy-first', d: 'Free tools run 100% in your browser. Your data never leaves your device.' },
+                { e: '📱', t: 'Works everywhere', d: 'Fully responsive design. Use on desktop, tablet, or mobile seamlessly.' },
+                { e: '🚫', t: 'No signup required', d: 'All free tools work immediately — no account, no email, no friction.' },
+                { e: '💯', t: 'Always improving', d: 'We add new tools and improvements every month based on user feedback.' },
+                { e: '🎯', t: 'Built for results', d: 'Every tool is designed around real tasks — not just demos or showcases.' },
+              ].map((x, i) => (
+                <div key={i} className="flex items-start gap-4 p-4 rounded-2xl group" style={{ transition: 'background 0.2s' }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                  <span className="text-2xl flex-shrink-0">{x.e}</span>
+                  <div>
+                    <div className="font-medium text-white text-sm mb-1">{x.t}</div>
+                    <div className="text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>{x.d}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ FAQ ═══ */}
+        <section id="faq" className="container-site mt-24">
+          <div className="text-center mb-10">
+            <h2 className="font-serif text-3xl md:text-4xl text-white" style={{ letterSpacing: '-0.025em', fontWeight: 400 }}>
+              Frequently asked questions
+            </h2>
+            <p className="mt-3 text-sm" style={{ color: 'var(--muted)' }}>Everything you need to know about StudyAI Tools.</p>
+          </div>
+          <div className="max-w-3xl mx-auto space-y-3">
+            {faqs.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
+          </div>
+        </section>
+
+        {/* ═══ BOTTOM CTA ═══ */}
+        <section className="container-site mt-24">
+          <div className="relative overflow-hidden rounded-3xl p-10 md:p-16 text-center" style={{ border: '1px solid rgba(99,102,241,0.2)', background: 'rgba(8,22,38,0.7)' }}>
+            <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.1) 0%, transparent 70%)', pointerEvents: 'none' }} />
+            <div style={{ position: 'relative' }}>
+              <h2 className="font-serif text-4xl md:text-5xl text-white mb-4" style={{ letterSpacing: '-0.03em', fontWeight: 400 }}>
+                Ready to work smarter?
+              </h2>
+              <p className="max-w-md mx-auto mb-8 text-lg" style={{ color: 'var(--muted)' }}>
+                Join 200,000+ users who use StudyAI Tools every month.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Link
+                  to="/free-tools"
+                  className="liquid-glass flex items-center gap-2 px-8 py-4 rounded-2xl text-white font-semibold text-base"
+                >
+                  <Zap className="w-5 h-5" /> Start Free Now
+                </Link>
+                <button
+                  onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="flex items-center gap-2 px-8 py-4 rounded-2xl text-white font-semibold text-base transition-all"
+                  style={{ border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.04)' }}
+                >
+                  View Pro Plans
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ BOTTOM AD ═══ */}
+        <div className="container-site mt-16 mb-4">
+          <AdSlot variant="bottom" />
+        </div>
+
+        {/* Bottom meta strip */}
+        <div className="animate-fade-rise-delay-4" style={{ maxWidth: 1280, margin: '0 auto', padding: '24px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', color: 'rgba(255,255,255,0.2)', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', gap: 16, flexWrap: 'wrap' }}>
+          <span>● Live · Curated weekly</span>
+          <div style={{ flex: 1, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)', minWidth: 40, margin: '0 24px' }} />
+          <span>Scroll ↑ to explore</span>
+        </div>
+
       </div>
     </>
   )
